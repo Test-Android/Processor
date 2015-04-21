@@ -1,14 +1,17 @@
 package com.nicodangelo.processor;
 
+import android.content.Context;
+
 public class Game implements Runnable
 {
     private boolean running = false;
     private Thread mainThread;
+    private GameView view;
     public final String NAME = "Processor";
 
-    public Game()
+    public Game(GameView view)
     {
-
+        this.view = view;
     }
 
 
