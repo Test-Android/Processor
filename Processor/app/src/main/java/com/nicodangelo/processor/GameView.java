@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -26,7 +27,6 @@ public class GameView extends SurfaceView
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder)
             {
-                sprite = createSprite();
                 System.out.println("SHOULD HAVE BEEN STARTED");
                 game.start();
             }
@@ -42,16 +42,20 @@ public class GameView extends SurfaceView
                 System.out.println("HOPEFULLY DOESNT STOP");
             }
         });
-    }
-    private ProcessorSprite createSprite()
-    {
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
-        return new ProcessorSprite(this,bmp);
+        sprite = new ProcessorSprite(this,bmp);
     }
     @Override
     protected void onDraw(Canvas canvas)
     {
-        canvas.drawColor(Color.RED);
+        canvas.drawColor(Color.BLACK);
         sprite.onDraw(canvas);
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if(sprite.clickedInside((int)event.getX(),(int)event.getY()))
+            System.out.println("YOU CLICKED INSIDE THE THING");
+        return super.onTouchEvent(event);
     }
 }
