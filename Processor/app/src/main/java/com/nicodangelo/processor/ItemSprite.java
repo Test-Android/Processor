@@ -4,21 +4,27 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class ProcessorSprite
+/**
+ * Created by Jetts on 4/21/2015.
+ */
+public class ItemSprite
 {
     private GameView game;
     private Bitmap b;
     private int x = 0;
     private int y = 0;
-
-    public ProcessorSprite(GameView game, Bitmap b)
+    private int price = 0;
+    public ItemSprite(GameView game, Bitmap b, int x, int y, int price)
     {
         this.game = game;
         this.b = b;
+        this.x = x;
+        this.y = y;
+        this.price = price;
     }
     public void onDraw(Canvas canvas)
     {
-        canvas.drawBitmap(b,0,0,null);
+        canvas.drawBitmap(b,x,y,null);
     }
 
     private void tick()
@@ -33,5 +39,4 @@ public class ProcessorSprite
         else
             return false;
     }
-
 }

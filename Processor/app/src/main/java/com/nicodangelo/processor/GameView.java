@@ -17,6 +17,7 @@ public class GameView extends SurfaceView
     private SurfaceHolder holder;
     private Game game;
     private ProcessorSprite sprite;
+    private ItemSprite oneChip;
     public GameView(Context context)
     {
         super(context);
@@ -39,23 +40,28 @@ public class GameView extends SurfaceView
             public void surfaceDestroyed(SurfaceHolder surfaceHolder)
             {
                 game.stop();
-                System.out.println("HOPEFULLY DOESNT STOP");
+                System.out.println("STOPPING THE GAME");
             }
         });
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
         sprite = new ProcessorSprite(this,bmp);
+        oneChip = new ItemSprite(this,bmp,400,400,20);
+
     }
     @Override
     protected void onDraw(Canvas canvas)
     {
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.WHITE);
         sprite.onDraw(canvas);
+        oneChip.onDraw(canvas);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
         if(sprite.clickedInside((int)event.getX(),(int)event.getY()))
             System.out.println("YOU CLICKED INSIDE THE THING");
+        else if(oneChip.clickedInside((int)event.getX(),(int)event.getY()))
+            System.out.println("YOU CLICKED AN ITEM SPRITE");
         return super.onTouchEvent(event);
     }
 }
