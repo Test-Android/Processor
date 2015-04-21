@@ -38,20 +38,7 @@ public class Game implements Runnable
             }
             render();
             frames++;
-            Canvas c = null;
-            try
-            {
-                c = view.getHolder().lockCanvas();
-                synchronized (view.getHolder())
-                {
-                    view.onDraw(c);
-                }
-            }
-            finally
-            {
-                if(c != null)
-                    view.getHolder().unlockCanvasAndPost(c);
-            }
+
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer+=1000;
@@ -86,9 +73,21 @@ public class Game implements Runnable
     {
 
     }
-
     public void render()
     {
-
+        Canvas c = null;
+        try
+        {
+            c = view.getHolder().lockCanvas();
+            synchronized (view.getHolder())
+            {
+                view.onDraw(c);
+            }
+        }
+        finally
+        {
+            if(c != null)
+                view.getHolder().unlockCanvasAndPost(c);
+        }
     }
 }

@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jetts on 4/20/2015.
  */
@@ -16,12 +19,12 @@ public class GameView extends SurfaceView
 {
     private SurfaceHolder holder;
     private Game game;
-    private ProcessorSprite sprite;
-    private ItemSprite oneChip;
+    private ArrayList<ProcessorSprite> sprites;
     public GameView(Context context)
     {
         super(context);
         System.out.println("got to the context.");
+        sprites = new ArrayList<ProcessorSprite>();
         game = new Game(this);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -44,24 +47,28 @@ public class GameView extends SurfaceView
             }
         });
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
-        sprite = new ProcessorSprite(this,bmp);
-        oneChip = new ItemSprite(this,bmp,400,400,20);
+        sprites.add(new ProcessorSprite(this,bmp,90,90));
+        sprites.add(new ProcessorSprite(this,bmp,300,300));
 
     }
     @Override
     protected void onDraw(Canvas canvas)
     {
         canvas.drawColor(Color.WHITE);
-        sprite.onDraw(canvas);
-        oneChip.onDraw(canvas);
+        for(int k = 0; k < sprites.size(); k++)
+            sprites.get(k).onDraw(canvas);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if(sprite.clickedInside((int)event.getX(),(int)event.getY()))
-            System.out.println("YOU CLICKED INSIDE THE THING");
-        else if(oneChip.clickedInside((int)event.getX(),(int)event.getY()))
-            System.out.println("YOU CLICKED AN ITEM SPRITE");
+        for(int k = 0; k < sprites.size(); k++)
+        {
+            if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
+            {
+                System.out.println("SPRITE " + k + " CLICKED");
+                break;
+            }
+        }
         return super.onTouchEvent(event);
     }
 }

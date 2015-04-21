@@ -11,14 +11,16 @@ public class ProcessorSprite
     private int x = 0;
     private int y = 0;
 
-    public ProcessorSprite(GameView game, Bitmap b)
+    public ProcessorSprite(GameView game, Bitmap b, int x, int y)
     {
         this.game = game;
         this.b = b;
+        this.x = x;
+        this.y = y;
     }
     public void onDraw(Canvas canvas)
     {
-        canvas.drawBitmap(b,0,0,null);
+        canvas.drawBitmap(b,x,y,null);
     }
 
     private void tick()
@@ -27,9 +29,14 @@ public class ProcessorSprite
     }
     public boolean clickedInside(int x, int y)
     {
-        Rect temp = new Rect(this.x, this.y,b.getWidth(),b.getHeight());
+        int width = b.getWidth();
+        int height = b.getHeight();
+        Rect temp = new Rect(this.x, this.y,width,height);
         if(temp.contains(x,y))
+        {
+            System.out.println("PROCESSOR SPRITE");
             return true;
+        }
         else
             return false;
     }
