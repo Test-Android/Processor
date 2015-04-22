@@ -99,10 +99,11 @@ public class GameView extends SurfaceView
             selected = 0;
         if(sprites.size() != 1)
         {
+            Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
             for(int k = 0; k < sprites.size();k++)
             {
-                Rect temp = new Rect(sprites.get(k).getX(),sprites.get(k).getY(),sprites.get(k).totalX(),sprites.get(k).totalY());
-                if(sprites.get(selected).getType() == sprites.get(k).getType() && temp.contains((int)event.getX(),(int)event.getY()) && selected != k)
+                Rect tempRect = new Rect(sprites.get(k).getX(),sprites.get(k).getY(),sprites.get(k).totalX(),sprites.get(k).totalY());
+                if(ProcessorSprite.collision(selectedRect, tempRect) && selected != k && sprites.get(selected).getType() == sprites.get(k).getType())
                 {
                     connect(selected,k);
                     break;

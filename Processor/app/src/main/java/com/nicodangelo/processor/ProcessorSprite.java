@@ -78,6 +78,19 @@ public class ProcessorSprite
         else
             this.y = (int)y;
     }
+    public static Boolean collision(Rect selected, Rect temp)
+    {
+        if(selected.contains(temp.right,temp.top))
+            return true;
+        else if(selected.contains(temp.right,temp.bottom))
+            return true;
+        else if(selected.contains(temp.left,temp.top))
+            return true;
+        else if(selected.contains(temp.left,temp.bottom))
+            return true;
+        else
+            return false;
+    }
     public int getX()
     {
         return this.x;
