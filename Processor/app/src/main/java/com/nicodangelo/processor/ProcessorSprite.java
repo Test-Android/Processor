@@ -1,8 +1,12 @@
 package com.nicodangelo.processor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class ProcessorSprite
 {
@@ -63,13 +67,23 @@ public class ProcessorSprite
 
     public void changePos(float x, float y)
     {
-        if(x + b.getWidth() >= 960)
-            this.x = 960 - b.getWidth();
+        DisplayMetrics metrics = new DisplayMetrics();
+        .getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        metrics.heightPixels;
+        metrics.widthPixels;
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        int width = display.getWidth();  // deprecated
+        int height = display.getHeight();  // deprecated
+        if(x + b.getWidth() >= width)
+            this.x = width - b.getWidth();
         else
             this.x = (int)x;
 
-        if(y + b.getHeight() >= 1080)
-            this.y = 1080 - b.getHeight();
+        if(y + b.getHeight() >= height)
+            this.y = height - b.getHeight();
         else
             this.y = (int)y;
     }
