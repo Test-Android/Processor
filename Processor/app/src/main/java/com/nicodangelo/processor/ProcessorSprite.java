@@ -33,10 +33,7 @@ public class ProcessorSprite
         int height = b.getHeight();
         Rect temp = new Rect(this.x, this.y,width + this.x,height + this.y);
         if(temp.contains(x,y))
-        {
-            System.out.println("PROCESSOR SPRITE");
             return true;
-        }
         else
             return false;
     }
