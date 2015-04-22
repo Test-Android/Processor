@@ -10,7 +10,13 @@ public class ProcessorSprite
     private Bitmap b;
     private int x = 0;
     private int y = 0;
+    private int type = 0;
 
+    public ProcessorSprite(GameView game, Bitmap b)
+    {
+        this.game = game;
+        this.b = b;
+    }
     public ProcessorSprite(GameView game, Bitmap b, int x, int y)
     {
         this.game = game;
@@ -18,9 +24,26 @@ public class ProcessorSprite
         this.x = x;
         this.y = y;
     }
+    public ProcessorSprite(GameView game, Bitmap b, int x, int y, int type)
+    {
+        this.game = game;
+        this.b = b;
+        this.x = x;
+        this.y = y;
+        this.type = type;
+    }
     public void onDraw(Canvas canvas)
     {
         canvas.drawBitmap(b,x,y,null);
+    }
+
+    public void setType(int type)
+    {
+        this.type = type;
+    }
+    public int getType()
+    {
+        return type;
     }
 
     private void tick()
@@ -49,5 +72,21 @@ public class ProcessorSprite
             this.y = 1080 - b.getHeight();
         else
             this.y = (int)y;
+    }
+    public int getX()
+    {
+        return this.x;
+    }
+    public int getY()
+    {
+        return this.y;
+    }
+    public int totalX()
+    {
+        return this.x + b.getWidth();
+    }
+    public int totalY()
+    {
+        return this.y + b.getHeight();
     }
 }
