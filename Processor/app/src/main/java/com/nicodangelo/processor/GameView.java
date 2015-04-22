@@ -49,8 +49,8 @@ public class GameView extends SurfaceView
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
         sprites.add(new ProcessorSprite(this,bmp,90,90));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
-
     }
+
     @Override
     protected void onDraw(Canvas canvas)
     {
