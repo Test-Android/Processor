@@ -26,6 +26,7 @@ public class GameView extends SurfaceView
     private int selected = 0;
     private final int width;
     private final int height;
+    private static boolean ableSelect = true;
     public GameView(Context context, int width, int height)
     {
         super(context);
@@ -83,9 +84,14 @@ public class GameView extends SurfaceView
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
         sprites.add(new ProcessorSprite(this,bmp,(int)(Math.random() * 700),(int)(Math.random() * 1000)));
     }
+    public static void selectivity(boolean select)
+    {
+        ableSelect = select;
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+
         for(int k = sprites.size() - 1; k >= 0; k--)
         {
             if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
@@ -110,7 +116,7 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        if(selected < sprites.size())
+        if(selected < sprites.size() && ableSelect)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
 
         return super.onTouchEvent(event);

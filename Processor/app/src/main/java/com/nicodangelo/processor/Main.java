@@ -1,23 +1,24 @@
 package com.nicodangelo.processor;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static com.nicodangelo.processor.R.mipmap.ic_launcher;
 
 
 public class Main extends Activity
 {
     boolean pause = false;
+    boolean selected = true;
     public static TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,8 +57,28 @@ public class Main extends Activity
                game.addSprite();
             }
         });
+        ImageView iv = new ImageView(this);
+        iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), ic_launcher));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(selected)
+                {
+                    selected = false;
+                    game.selectivity(selected);
+                }
+                else
+                {
+                    selected = true;
+                    game.selectivity(selected);
+
+                }
+            }
+        });
         gameButtons.addView(b);
         gameButtons.addView(add);
+        gameButtons.addView(iv);
         layout.addView(game);
         layout.addView(gameButtons);
         setContentView(layout);
