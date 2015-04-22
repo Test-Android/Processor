@@ -22,6 +22,7 @@ public class GameView extends SurfaceView
     private SurfaceHolder holder;
     private Game game;
     private ArrayList<ProcessorSprite> sprites;
+    private ItemSprite itemSprite;
     private int selected = 0;
     private final int width;
     private final int height;
@@ -59,6 +60,12 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
         sprites.add(new ProcessorSprite(this,bmp,600,600));
+        sprites.add(new ProcessorSprite(this,bmp,200,900));
+        sprites.add(new ProcessorSprite(this,bmp,700,200));
+        sprites.add(new ProcessorSprite(this,bmp,400,500));
+        sprites.add(new ProcessorSprite(this,bmp,800,100));
+        bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        itemSprite = new ItemSprite(this,bmp,0,0,0);
 
     }
 
@@ -69,6 +76,12 @@ public class GameView extends SurfaceView
 
         for(int k = 0; k < sprites.size(); k++)
             sprites.get(k).onDraw(canvas);
+        itemSprite.onDraw(canvas);
+    }
+    public void addSprite()
+    {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        sprites.add(new ProcessorSprite(this,bmp,(int)(Math.random() * 700),(int)(Math.random() * 1000)));
     }
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -82,6 +95,8 @@ public class GameView extends SurfaceView
                 break;
             }
         }
+        if(selected >= sprites.size())
+            selected = 0;
         if(sprites.size() != 1)
         {
             for(int k = 0; k < sprites.size();k++)
@@ -106,12 +121,12 @@ public class GameView extends SurfaceView
         int type = sprites.get(selected).getType() + 1;
         if(x1 < x2)
         {
-            sprites.remove(x1);
+            sprites.remove(x2);
             sprites.remove(x1);
         }
         else
         {
-            sprites.remove(x2);
+            sprites.remove(x1);
             sprites.remove(x2);
         }
         Bitmap b;

@@ -9,12 +9,12 @@ public class Game implements Runnable
     private Thread mainThread;
     private GameView view;
     public final String NAME = "Processor";
+    private static boolean paused;
 
     public Game(GameView view)
     {
         this.view = view;
     }
-
 
     public void run()
     {
@@ -36,7 +36,11 @@ public class Game implements Runnable
                 ticks++;
                 delta--;
             }
-            render();
+            if(!paused)
+            {
+                render();
+
+            }
             frames++;
 
             if(System.currentTimeMillis() - timer > 1000)
@@ -89,5 +93,9 @@ public class Game implements Runnable
             if(c != null)
                 view.getHolder().unlockCanvasAndPost(c);
         }
+    }
+    public static void paused(Boolean p)
+    {
+        paused = p;
     }
 }

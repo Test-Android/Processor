@@ -14,6 +14,7 @@ public class ItemSprite
     private int x = 0;
     private int y = 0;
     private int price = 0;
+    private int speed = 5;
     public ItemSprite(GameView game, Bitmap b, int x, int y, int price)
     {
         this.game = game;
@@ -24,12 +25,18 @@ public class ItemSprite
     }
     public void onDraw(Canvas canvas)
     {
+        tick();
         canvas.drawBitmap(b,x,y,null);
     }
 
     private void tick()
     {
+        if((x + b.getWidth()) + speed <= 1080)
+            speed = -speed;
+        else if(x + speed >=0)
+            speed = -speed;
 
+        x = x + speed;
     }
     public boolean clickedInside(int x, int y)
     {
