@@ -39,4 +39,24 @@ public class ItemSprite
         else
             return false;
     }
+    public void changePos(float x, float y)
+    {
+        if(x + b.getWidth() >= 960)
+            this.x = 960 - b.getWidth();
+        else
+            this.x = (int)x;
+
+        if(y + b.getHeight() >= 1080)
+            this.y = 1080 - b.getHeight();
+        else
+            this.y = (int)y;
+    }
+    public int getX()
+    {
+        return this.x;
+    }
+    public int getY()
+    {
+        return this.y;
+    }
 }

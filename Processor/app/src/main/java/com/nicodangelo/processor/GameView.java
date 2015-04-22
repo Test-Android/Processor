@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,11 +21,14 @@ public class GameView extends SurfaceView
     private SurfaceHolder holder;
     private Game game;
     private ArrayList<ProcessorSprite> sprites;
+    private ArrayList<ItemSprite> itemSprites;
+    private int selected = 0;
     public GameView(Context context)
     {
         super(context);
         System.out.println("got to the context.");
         sprites = new ArrayList<ProcessorSprite>();
+        itemSprites = new ArrayList<ItemSprite>();
         game = new Game(this);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -46,9 +50,9 @@ public class GameView extends SurfaceView
                 System.out.println("STOPPING THE GAME");
             }
         });
-        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
-        sprites.add(new ProcessorSprite(this,bmp,90,90));
-        sprites.add(new ProcessorSprite(this,bmp,300,300));
+        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        itemSprites.add(new ItemSprite(this,bmp,100,100,10));
+        itemSprites.add(new ItemSprite(this,bmp,300,300,10));
     }
 
     @Override
@@ -57,6 +61,8 @@ public class GameView extends SurfaceView
         canvas.drawColor(Color.WHITE);
         for(int k = 0; k < sprites.size(); k++)
             sprites.get(k).onDraw(canvas);
+        for(int k = 0; k < itemSprites.size(); k++)
+            itemSprites.get(k).onDraw(canvas);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -66,10 +72,29 @@ public class GameView extends SurfaceView
             if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
             {
                 System.out.println("SPRITE " + k + " CLICKED");
+                selected = k;
                 break;
             }
         }
-        sprites.get(0).changePos(event.getX(),event.getY());
+        if(selected < itemSprites.size() -1)
+        {
+            for(int k = 0; k < itemSprites.size(); k++)
+            {
+                Rect temp = new Rect(itemSprites.get(k).getX(),itemSprites.get(k).getY(), itemSprites.get(k).getX() + 50,itemSprites.get(k).getY() + 50);
+                if(temp.contains((int)event.getX(),(int)event.getY()))
+                {
+                    connect(selected,k);
+                    break;
+                }
+            }
+        }
         return super.onTouchEvent(event);
+    }
+    public void connect(int x1, int x2)
+    {
+        itemSprites.remove(x2);
+        itemSprites.remove(x1);
+        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
+        sprites.add(new ProcessorSprite(this,b,0,0));
     }
 }

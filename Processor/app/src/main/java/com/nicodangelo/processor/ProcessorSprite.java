@@ -40,7 +40,14 @@ public class ProcessorSprite
 
     public void changePos(float x, float y)
     {
-        this.x = (int)x;
-        this.y = (int)y;
+        if(x + b.getWidth() >= 960)
+            this.x = 960 - b.getWidth();
+        else
+            this.x = (int)x;
+
+        if(y + b.getHeight() >= 1080)
+            this.y = 1080 - b.getHeight();
+        else
+            this.y = (int)y;
     }
 }
