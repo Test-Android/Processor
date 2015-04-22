@@ -88,6 +88,14 @@ public class ProcessorSprite
             return true;
         else if(selected.contains(temp.left,temp.bottom))
             return true;
+        else if(temp.contains(selected.left,selected.top))
+            return true;
+        else if(temp.contains(selected.left,selected.bottom))
+            return true;
+        else if(temp.contains(selected.right,selected.top))
+            return true;
+        else if(temp.contains(selected.right,selected.bottom))
+            return true;
         else
             return false;
     }
