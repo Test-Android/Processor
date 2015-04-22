@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,12 @@ public class GameView extends SurfaceView
     private SurfaceHolder holder;
     private Game game;
     private ArrayList<ProcessorSprite> sprites;
-    private ArrayList<ItemSprite> itemSprites;
     private int selected = 0;
     public GameView(Context context)
     {
         super(context);
         System.out.println("got to the context.");
         sprites = new ArrayList<ProcessorSprite>();
-        itemSprites = new ArrayList<ItemSprite>();
         game = new Game(this);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -51,18 +50,17 @@ public class GameView extends SurfaceView
             }
         });
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
-        itemSprites.add(new ItemSprite(this,bmp,100,100,10));
-        itemSprites.add(new ItemSprite(this,bmp,300,300,10));
+        sprites.add(new ProcessorSprite(this,bmp,100,100));
+        sprites.add(new ProcessorSprite(this,bmp,300,300));
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
         canvas.drawColor(Color.WHITE);
+
         for(int k = 0; k < sprites.size(); k++)
             sprites.get(k).onDraw(canvas);
-        for(int k = 0; k < itemSprites.size(); k++)
-            itemSprites.get(k).onDraw(canvas);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -76,25 +74,31 @@ public class GameView extends SurfaceView
                 break;
             }
         }
-        if(selected < itemSprites.size() -1)
+        if(sprites.size() != 1)
         {
-            for(int k = 0; k < itemSprites.size(); k++)
+            for(int k = 0; k < sprites.size();k++)
             {
-                Rect temp = new Rect(itemSprites.get(k).getX(),itemSprites.get(k).getY(), itemSprites.get(k).getX() + 50,itemSprites.get(k).getY() + 50);
-                if(temp.contains((int)event.getX(),(int)event.getY()))
+                Rect temp = new Rect(sprites.get(k).getX(),sprites.get(k).getY(),sprites.get(k).totalX(),sprites.get(k).totalY());
+                if(sprites.get(selected).getType() == sprites.get(k).getType() && temp.contains((int)event.getX(),(int)event.getY()) && selected != k)
                 {
                     connect(selected,k);
                     break;
                 }
             }
         }
+        if(selected < sprites.size())
+            sprites.get(selected).changePos(event.getX(),event.getY());
+
         return super.onTouchEvent(event);
     }
     public void connect(int x1, int x2)
     {
-        itemSprites.remove(x2);
-        itemSprites.remove(x1);
+        int x = sprites.get(selected).getX();
+        int y = sprites.get(selected).getY();
+        int type = sprites.get(selected).getType() + 1;
+        sprites.remove(0);
+        sprites.remove(0);
         Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
-        sprites.add(new ProcessorSprite(this,b,0,0));
+        sprites.add(new ProcessorSprite(this,b,x,y,type));
     }
 }

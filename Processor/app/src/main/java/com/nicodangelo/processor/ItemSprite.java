@@ -59,4 +59,12 @@ public class ItemSprite
     {
         return this.y;
     }
+    public int totalX()
+    {
+        return this.x + b.getWidth();
+    }
+    public int totalY()
+    {
+        return this.y + b.getHeight();
+    }
 }
