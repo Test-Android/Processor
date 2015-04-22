@@ -38,4 +38,9 @@ public class ProcessorSprite
             return false;
     }
 
+    public void changePos(float x, float y)
+    {
+        this.x = (int)x;
+        this.y = (int)y;
+    }
 }

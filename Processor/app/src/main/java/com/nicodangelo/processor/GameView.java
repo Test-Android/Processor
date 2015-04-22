@@ -69,6 +69,7 @@ public class GameView extends SurfaceView
                 break;
             }
         }
+        sprites.get(0).changePos(event.getX(),event.getY());
         return super.onTouchEvent(event);
     }
 }
