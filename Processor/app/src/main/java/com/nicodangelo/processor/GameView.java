@@ -61,7 +61,7 @@ public class GameView extends SurfaceView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        for(int k = 0; k < sprites.size(); k++)
+        for(int k = sprites.size() - 1; k >= 0; k--)
         {
             if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
             {
