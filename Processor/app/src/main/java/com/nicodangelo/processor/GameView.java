@@ -53,9 +53,13 @@ public class GameView extends SurfaceView
                 System.out.println("STOPPING THE GAME");
             }
         });
+
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
+        sprites.add(new ProcessorSprite(this,bmp,900,400));
+        sprites.add(new ProcessorSprite(this,bmp,600,600));
+
     }
 
     @Override
@@ -100,9 +104,24 @@ public class GameView extends SurfaceView
         int x = sprites.get(selected).getX();
         int y = sprites.get(selected).getY();
         int type = sprites.get(selected).getType() + 1;
-        sprites.remove(0);
-        sprites.remove(0);
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
-        sprites.add(new ProcessorSprite(this,b,x,y,type));
+        if(x1 < x2)
+        {
+            sprites.remove(x1);
+            sprites.remove(x1);
+        }
+        else
+        {
+            sprites.remove(x2);
+            sprites.remove(x2);
+        }
+        Bitmap b;
+        switch(type)
+        {
+            case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
+                    sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            case 2: b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                    sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+        }
+
     }
 }
