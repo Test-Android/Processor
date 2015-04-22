@@ -32,6 +32,7 @@ public class ProcessorSprite
         this.y = y;
         this.type = type;
     }
+
     public void onDraw(Canvas canvas)
     {
         canvas.drawBitmap(b,x,y,null);
@@ -61,15 +62,15 @@ public class ProcessorSprite
             return false;
     }
 
-    public void changePos(float x, float y)
+    public void changePos(float x, float y, int screenWidth, int screenHeight)
     {
-        if(x + b.getWidth() >= 960)
-            this.x = 960 - b.getWidth();
+        if(x + b.getWidth() >= screenWidth)
+            this.x = screenWidth - b.getWidth();
         else
             this.x = (int)x;
 
-        if(y + b.getHeight() >= 1080)
-            this.y = 1080 - b.getHeight();
+        if(y + b.getHeight() >= screenHeight)
+            this.y = screenHeight - b.getHeight();
         else
             this.y = (int)y;
     }
