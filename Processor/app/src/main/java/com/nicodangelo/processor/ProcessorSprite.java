@@ -36,6 +36,7 @@ public class ProcessorSprite
         this.y = y;
         this.type = type;
     }
+
     public void onDraw(Canvas canvas)
     {
         canvas.drawBitmap(b,x,y,null);
@@ -65,25 +66,15 @@ public class ProcessorSprite
             return false;
     }
 
-    public void changePos(float x, float y)
+    public void changePos(float x, float y, int screenWidth, int screenHeight)
     {
-        DisplayMetrics metrics = new DisplayMetrics();
-        .getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        metrics.heightPixels;
-        metrics.widthPixels;
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        int width = display.getWidth();  // deprecated
-        int height = display.getHeight();  // deprecated
-        if(x + b.getWidth() >= width)
-            this.x = width - b.getWidth();
+        if(x + b.getWidth() >= screenWidth)
+            this.x = screenWidth - b.getWidth();
         else
             this.x = (int)x;
 
-        if(y + b.getHeight() >= height)
-            this.y = height - b.getHeight();
+        if(y + b.getHeight() >= screenHeight)
+            this.y = screenHeight - b.getHeight();
         else
             this.y = (int)y;
     }

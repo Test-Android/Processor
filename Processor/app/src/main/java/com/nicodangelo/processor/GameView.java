@@ -23,10 +23,14 @@ public class GameView extends SurfaceView
     private Game game;
     private ArrayList<ProcessorSprite> sprites;
     private int selected = 0;
-    public GameView(Context context)
+    private final int width;
+    private final int height;
+    public GameView(Context context, int width, int height)
     {
         super(context);
         System.out.println("got to the context.");
+        this.width = width;
+        this.height = height;
         sprites = new ArrayList<ProcessorSprite>();
         game = new Game(this);
         holder = getHolder();
@@ -87,7 +91,7 @@ public class GameView extends SurfaceView
             }
         }
         if(selected < sprites.size())
-            sprites.get(selected).changePos(event.getX(),event.getY());
+            sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
 
         return super.onTouchEvent(event);
     }
