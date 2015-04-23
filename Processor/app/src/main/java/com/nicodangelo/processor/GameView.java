@@ -102,19 +102,12 @@ public class GameView extends SurfaceView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        for(int k = sprites.size() - 1; k >= 0; k--)
-        {
-            if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
-            {
-                System.out.println("SPRITE " + k + " CLICKED");
-                selected = k;
-                break;
-            }
-        }
+        getSelected((int)event.getX(), (int)event.getY());
 
         if(selected >= sprites.size())
             selected = 0;
-     if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
+
+        if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
         else if(!ableSelect && event.getAction() == MotionEvent.ACTION_DOWN && System.nanoTime() - lastClick > 100000)
         //TODO this is broken as F@#$ and "you" should totally fix it:)
@@ -124,6 +117,8 @@ public class GameView extends SurfaceView
              * TODO ADD COLLISON DETECOR THAT CHECK TO SEE IF X AND Y ARE INSIDE A SHAPE
              * TODO THEN GET THAT SHAPES TYPE AND ADD ACCORDING TO WHAT IT IS
              */
+            System.out.println("Selected sprite == " + selected);
+            System.out.println("X and Y inside seleceted == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
             if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
             {
                 switch(sprites.get(selected).getType())
@@ -135,7 +130,7 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        System.out.println(event.getAction());
+
         if(sprites.size() != 1)
         {
             Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
@@ -152,7 +147,21 @@ public class GameView extends SurfaceView
         //return super.onTouchEvent(event);
         return true;
     }
-
+    public void getSelected(int x, int y)
+    {
+        if(ableSelect)
+        {
+            for(int k = sprites.size() - 1; k >= 0; k--)
+            {
+                if(sprites.get(k).clickedInside(x,y))
+                {
+                    System.out.println("SPRITE " + k + " CLICKED");
+                    selected = k;
+                    break;
+                }
+            }
+        }
+    }
     public void connect(int x1, int x2)
     {
         int x = sprites.get(selected).getX();
@@ -172,11 +181,11 @@ public class GameView extends SurfaceView
         switch(type)
         {
             case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
-                    sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             case 2: b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-                    sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             default: b = BitmapFactory.decodeResource(getResources(),R.drawable.star1);
-                    sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
+                sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
         }
         selected = sprites.size() - 1;
     }
