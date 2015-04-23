@@ -21,7 +21,7 @@ public class GameView extends SurfaceView
 {
     private SurfaceHolder holder;
     private Game game;
-    private ArrayList<ProcessorSprite> sprites;
+    public  ArrayList<ProcessorSprite> sprites;
     private ItemSprite itemSprite;
     private int selected = 0;
     private final int width;
@@ -58,13 +58,13 @@ public class GameView extends SurfaceView
 
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
-        /*sprites.add(new ProcessorSprite(this,bmp,300,300));
+        sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
         sprites.add(new ProcessorSprite(this,bmp,600,600));
         sprites.add(new ProcessorSprite(this,bmp,200,900));
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
-        sprites.add(new ProcessorSprite(this,bmp,800,100));*/
+        sprites.add(new ProcessorSprite(this,bmp,800,100));
         bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         itemSprite = new ItemSprite(this,bmp,0,0,0);
 
@@ -88,10 +88,10 @@ public class GameView extends SurfaceView
     {
         ableSelect = select;
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-
         for(int k = sprites.size() - 1; k >= 0; k--)
         {
             if(sprites.get(k).clickedInside((int)event.getX(),(int)event.getY()))
@@ -101,9 +101,10 @@ public class GameView extends SurfaceView
                 break;
             }
         }
+
         if(selected >= sprites.size())
             selected = 0;
-        if(ableSelect)
+        if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
         if(sprites.size() != 1)
         {
@@ -118,20 +119,12 @@ public class GameView extends SurfaceView
                 }
             }
 
-            for(int i = 0; i < sprites.size(); i++)
-            {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_MOVE:
-                        sprites.
-                        break;
-                }
-            }
+
         }
-
-
-        return super.onTouchEvent(event);
+        //return super.onTouchEvent(event);
+        return true;
     }
+
     public void connect(int x1, int x2)
     {
         int x = sprites.get(selected).getX();
