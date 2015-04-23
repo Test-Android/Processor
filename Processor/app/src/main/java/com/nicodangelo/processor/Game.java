@@ -17,6 +17,7 @@ public class Game implements Runnable
     private Bit bit;
     public final String NAME = "Processor";
     private static boolean paused;
+    private int curFrames;
 
     public Game(GameView view, Bit bit)
     {
@@ -54,7 +55,8 @@ public class Game implements Runnable
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer+=1000;
-                System.out.println("Ticks: " + ticks + "\nFrames: " + frames);
+                curFrames = frames;
+//                System.out.println("Ticks: " + ticks + "\nFrames: " + frames);
                 frames = 0;
                 ticks = 0;
             }
@@ -99,6 +101,7 @@ public class Game implements Runnable
                 paint.setColor(Color.RED);
                 paint.setTextSize(60);
                 c.drawText(Long.toString(bit.getBits()), 0, 200, paint);
+                c.drawText(Integer.toString(curFrames),0,260,paint);
             }
         }
         finally
