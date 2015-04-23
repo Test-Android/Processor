@@ -116,7 +116,13 @@ public class GameView extends SurfaceView
         if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
         else
-            bit.addBits(1);
+            if(sprites.get(selected).getType() == 0)
+                bit.addBits(1);
+            else if(sprites.get(selected).getType() == 1)
+                bit.addBits(8);
+            else
+                bit.addBits(16);
+
         if(sprites.size() != 1)
         {
             Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
