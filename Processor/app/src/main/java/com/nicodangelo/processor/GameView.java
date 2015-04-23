@@ -6,10 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.text.Layout;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.TextView;
+
+import com.nicodangelo.bits.Bit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +27,23 @@ public class GameView extends SurfaceView
     private Game game;
     public  ArrayList<ProcessorSprite> sprites;
     private ItemSprite itemSprite;
+    private Bit bit;
     private int selected = 0;
     private final int width;
     private final int height;
     private static boolean ableSelect = true;
-    public GameView(Context context, int width, int height)
+    public GameView(Context context, int width, int height, Bit bit)
     {
         super(context);
+
+        //make sure to connect the bit to "bit"
+        this.bit = bit;
+
         System.out.println("got to the context.");
         this.width = width;
         this.height = height;
         sprites = new ArrayList<ProcessorSprite>();
-        game = new Game(this);
+        game = new Game(this, bit);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -106,6 +115,8 @@ public class GameView extends SurfaceView
             selected = 0;
         if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
+        else
+            bit.addBits(1);
         if(sprites.size() != 1)
         {
             Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
@@ -149,6 +160,5 @@ public class GameView extends SurfaceView
                     sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
         }
         selected = sprites.size() - 1;
-
     }
 }

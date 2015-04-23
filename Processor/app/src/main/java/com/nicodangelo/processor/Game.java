@@ -2,18 +2,26 @@ package com.nicodangelo.processor;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.Log;
+import android.widget.TextView;
+
+import com.nicodangelo.bits.Bit;
 
 public class Game implements Runnable
 {
     private boolean running = false;
     private Thread mainThread;
     private GameView view;
+    private Bit bit;
     public final String NAME = "Processor";
     private static boolean paused;
 
-    public Game(GameView view)
+    public Game(GameView view, Bit bit)
     {
         this.view = view;
+        this.bit = bit;
     }
 
     public void run()
@@ -86,6 +94,11 @@ public class Game implements Runnable
             synchronized (view.getHolder())
             {
                 view.onDraw(c);
+                //c.drawColor(Color.WHITE);
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                paint.setTextSize(30);
+                c.drawText(Long.toString(bit.getBits()), 450, 40, paint);
             }
         }
         finally

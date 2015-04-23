@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nicodangelo.bits.Bit;
+
 import static com.nicodangelo.processor.R.mipmap.ic_launcher;
 
 
@@ -19,7 +21,6 @@ public class Main extends Activity
 {
     boolean pause = false;
     boolean selected = true;
-    public static TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,7 +29,9 @@ public class Main extends Activity
         int width = getWindowManager().getDefaultDisplay().getWidth();
         int height = getWindowManager().getDefaultDisplay().getHeight();
         FrameLayout layout = new FrameLayout(this);
-        final GameView game = new GameView(this,width,height);
+        final Bit bit = new Bit();
+        final GameView game = new GameView(this,width,height, bit);
+
         LinearLayout gameButtons = new LinearLayout(this);
         Button b = new Button(this);
         b.setText("Pause");
@@ -47,6 +50,7 @@ public class Main extends Activity
                 }
             }
         });
+
         Button add = new Button(this);
         add.setText("add");
         add.setOnClickListener(new View.OnClickListener()
@@ -57,6 +61,7 @@ public class Main extends Activity
                game.addSprite();
             }
         });
+
         ImageView iv = new ImageView(this);
         iv.setImageBitmap(BitmapFactory.decodeResource(getResources(), ic_launcher));
         iv.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +81,14 @@ public class Main extends Activity
                 }
             }
         });
+
         gameButtons.addView(b);
         gameButtons.addView(add);
         gameButtons.addView(iv);
+
         layout.addView(game);
         layout.addView(gameButtons);
+
         setContentView(layout);
 
     }

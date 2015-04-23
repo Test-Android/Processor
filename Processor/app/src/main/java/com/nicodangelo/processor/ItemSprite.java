@@ -1,8 +1,11 @@
 package com.nicodangelo.processor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by Jetts on 4/21/2015.
@@ -15,6 +18,7 @@ public class ItemSprite
     private int y = 0;
     private int price = 0;
     private int speed = 5;
+
     public ItemSprite(GameView game, Bitmap b, int x, int y, int price)
     {
         this.game = game;
@@ -23,6 +27,7 @@ public class ItemSprite
         this.y = y;
         this.price = price;
     }
+
     public void onDraw(Canvas canvas)
     {
         tick();
