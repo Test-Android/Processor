@@ -58,13 +58,13 @@ public class GameView extends SurfaceView
 
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
-        sprites.add(new ProcessorSprite(this,bmp,300,300));
+        /*sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
         sprites.add(new ProcessorSprite(this,bmp,600,600));
         sprites.add(new ProcessorSprite(this,bmp,200,900));
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
-        sprites.add(new ProcessorSprite(this,bmp,800,100));
+        sprites.add(new ProcessorSprite(this,bmp,800,100));*/
         bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         itemSprite = new ItemSprite(this,bmp,0,0,0);
 
@@ -115,6 +115,16 @@ public class GameView extends SurfaceView
                 {
                     connect(selected,k);
                     break;
+                }
+            }
+
+            for(int i = 0; i < sprites.size(); i++)
+            {
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_MOVE:
+                        sprites.
+                        break;
                 }
             }
         }
