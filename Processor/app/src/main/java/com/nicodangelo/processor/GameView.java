@@ -114,25 +114,25 @@ public class GameView extends SurfaceView
 
         if(selected >= sprites.size())
             selected = 0;
-     /*   if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
+     if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
-    
+        else if(!ableSelect && event.getAction() == MotionEvent.ACTION_DOWN && System.nanoTime() - lastClick > 100000)
         //TODO this is broken as F@#$ and "you" should totally fix it:)
-        else if(System.nanoTime() - lastClick > 100000)
         {
             lastClick = System.nanoTime();
             /*
              * TODO ADD COLLISON DETECOR THAT CHECK TO SEE IF X AND Y ARE INSIDE A SHAPE
              * TODO THEN GET THAT SHAPES TYPE AND ADD ACCORDING TO WHAT IT IS
-             /*
+             */
             if(sprites.get(selected).getType() == 0)
                bit.addBits(1);
             else if(sprites.get(selected).getType() == 1)
                bit.addBits(8);
             else
                bit.addBits(16);
-            System.out.println("_________________BLOOP_____________");
-        } */
+//            System.out.println("_________________BLOOP_____________");
+        }
+//        System.out.println(event.getAction());
         System.out.println(event.getAction());
         if(sprites.size() != 1)
         {
