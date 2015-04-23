@@ -145,6 +145,8 @@ public class GameView extends SurfaceView
                     sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             case 2: b = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
                     sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            default: b = BitmapFactory.decodeResource(getResources(),R.drawable.star1);
+                    sprites.add(new ProcessorSprite(this,b,x,y,1)); break;
         }
 
     }
