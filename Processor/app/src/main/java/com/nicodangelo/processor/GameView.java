@@ -32,6 +32,7 @@ public class GameView extends SurfaceView
     private final int width;
     private final int height;
     private static boolean ableSelect = true;
+    private long lastClick;
     public GameView(Context context, int width, int height, Bit bit)
     {
         super(context);
@@ -76,7 +77,7 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,800,100));
         bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         itemSprite = new ItemSprite(this,bmp,0,0,0);
-
+        lastClick = System.nanoTime();
     }
 
     @Override
@@ -115,14 +116,22 @@ public class GameView extends SurfaceView
             selected = 0;
         if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
-        else
+        //TODO this is broken as F@#$ and "you" should totally fix it:)
+        else if(System.nanoTime() - lastClick > 100000)
+        {
+            lastClick = System.nanoTime();
+            /*
+             * TODO ADD COLLISON DETECOR THAT CHECK TO SEE IF X AND Y ARE INSIDE A SHAPE
+             * TODO THEN GET THAT SHAPES TYPE AND ADD ACCORDING TO WHAT IT IS
+             */
             if(sprites.get(selected).getType() == 0)
-                bit.addBits(1);
+               bit.addBits(1);
             else if(sprites.get(selected).getType() == 1)
-                bit.addBits(8);
+               bit.addBits(8);
             else
-                bit.addBits(16);
-
+               bit.addBits(16);
+            System.out.println("_________________BLOOP_____________");
+        }
         if(sprites.size() != 1)
         {
             Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
