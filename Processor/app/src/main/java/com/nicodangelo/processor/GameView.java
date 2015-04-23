@@ -103,6 +103,8 @@ public class GameView extends SurfaceView
         }
         if(selected >= sprites.size())
             selected = 0;
+        if(ableSelect)
+            sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
         if(sprites.size() != 1)
         {
             Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
@@ -116,8 +118,7 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        if(selected < sprites.size() && ableSelect)
-            sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
+
 
         return super.onTouchEvent(event);
     }
