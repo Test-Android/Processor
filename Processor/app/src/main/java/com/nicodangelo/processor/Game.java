@@ -97,8 +97,8 @@ public class Game implements Runnable
                 //c.drawColor(Color.WHITE);
                 Paint paint = new Paint();
                 paint.setColor(Color.RED);
-                paint.setTextSize(30);
-                c.drawText(Long.toString(bit.getBits()), 450, 40, paint);
+                paint.setTextSize(60);
+                c.drawText(Long.toString(bit.getBits()), 0, 200, paint);
             }
         }
         finally
