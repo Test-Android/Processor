@@ -183,15 +183,15 @@ public class GameView extends SurfaceView
 //TODO     JUST SOMETHING SIMPLE LIKE A RED OUTLINE WOULD WORK
         switch(sprites.get(cur).getType())
         {
-            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.selstar1);
                 sprites.get(cur).updateBit(b); break;
-            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
+            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.selrenderme);
                 sprites.get(cur).updateBit(b); break;
-            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.selstar2);
                 sprites.get(cur).updateBit(b); break;
-            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
+            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.selrenderme2);
                 sprites.get(cur).updateBit(b); break;
-            case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            case 4: b = BitmapFactory.decodeResource(getResources(), R.drawable.selic_launcher);
                 sprites.get(cur).updateBit(b); break;
         }
     }
