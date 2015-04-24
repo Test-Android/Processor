@@ -154,10 +154,45 @@ public class GameView extends SurfaceView
                 if(sprites.get(k).clickedInside(x,y))
                 {
                     System.out.println("SPRITE " + k + " CLICKED");
+                    int lastSelected = selected;
                     selected = k;
+                    updateSelected(lastSelected, selected);
                     break;
                 }
             }
+        }
+    }
+    public void updateSelected(int old, int cur)
+    {
+        Bitmap b;
+        switch(sprites.get(old).getType())
+        {
+            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+                    sprites.get(old).updateBit(b); break;
+            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
+                sprites.get(old).updateBit(b); break;
+            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+                sprites.get(old).updateBit(b); break;
+            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
+                sprites.get(old).updateBit(b); break;
+            case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                sprites.get(old).updateBit(b); break;
+        }
+
+//TODO     ADD SPRITE IMAGES FOR SELECTED ITEMS, I IMPLEMENTED THE ABILITY TO DO SO
+//TODO     JUST SOMETHING SIMPLE LIKE A RED OUTLINE WOULD WORK
+        switch(sprites.get(cur).getType())
+        {
+            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+                sprites.get(cur).updateBit(b); break;
+            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
+                sprites.get(cur).updateBit(b); break;
+            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+                sprites.get(cur).updateBit(b); break;
+            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
+                sprites.get(cur).updateBit(b); break;
+            case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                sprites.get(cur).updateBit(b); break;
         }
     }
     public void connect(int x1, int x2)

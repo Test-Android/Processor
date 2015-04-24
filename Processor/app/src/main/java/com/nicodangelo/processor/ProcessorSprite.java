@@ -99,6 +99,10 @@ public class ProcessorSprite
         else
             return false;
     }
+    public void updateBit(Bitmap b)
+    {
+        this.b = b;
+    }
     public int getX()
     {
         return this.x;
