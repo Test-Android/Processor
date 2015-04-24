@@ -110,7 +110,6 @@ public class GameView extends SurfaceView
         if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
             sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
         else if(!ableSelect && event.getAction() == MotionEvent.ACTION_DOWN && System.nanoTime() - lastClick > 100000)
-        //TODO this is broken as F@#$ and "you" should totally fix it:)
         {
             lastClick = System.nanoTime();
 
@@ -123,6 +122,8 @@ public class GameView extends SurfaceView
                     case 0: bit.addBits(1); break;
                     case 1: bit.addBits(8); break;
                     case 2: bit.addBits(16); break;
+                    case 3: bit.addBits(32); break;
+                    case 4: bit.addBits(64); break;
 
                 }
             }
