@@ -113,10 +113,7 @@ public class GameView extends SurfaceView
         //TODO this is broken as F@#$ and "you" should totally fix it:)
         {
             lastClick = System.nanoTime();
-            /*
-             * TODO ADD COLLISON DETECOR THAT CHECK TO SEE IF X AND Y ARE INSIDE A SHAPE
-             * TODO THEN GET THAT SHAPES TYPE AND ADD ACCORDING TO WHAT IT IS
-             */
+
             System.out.println("Selected sprite == " + selected);
             System.out.println("X and Y inside seleceted == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
             if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
