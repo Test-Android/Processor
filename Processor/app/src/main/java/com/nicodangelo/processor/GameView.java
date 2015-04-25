@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.text.Layout;
 import android.view.MotionEvent;
@@ -76,8 +79,18 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
         sprites.add(new ProcessorSprite(this,bmp,800,100));
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.add_button);
-        items.add(new ItemSprite(this,bmp,width - 70, height - 200,8));
+        bmp = Bitmap.createBitmap(200, 100, Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bmp);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE); // Text Color
+        paint.setTextSize(30); // Text Size
+        paint.setTextAlign(Paint.Align.CENTER);
+        // some more settings...
+
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        canvas.drawText("Testing...", 0, bmp.getHeight() / 2, paint);
+        items.add(new ItemSprite(this,bmp,width - 250, 200,8));
         lastClick = System.nanoTime();
     }
 
@@ -91,10 +104,31 @@ public class GameView extends SurfaceView
         for(int k = 0; k < items.size(); k++)
             items.get(k).onDraw(canvas);
     }
-    public void addSprite()
+    public void addSprite(int type)
     {
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
-        sprites.add(new ProcessorSprite(this,bmp,(int)(Math.random() * 700),(int)(Math.random() * 1000)));
+        Bitmap bmp;
+        switch(type)
+        {
+            case 0: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
+                    sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+            case 1: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+            case 2: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+            case 3: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+            case 4: bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+        }
+
+    }
+    public int ranX()
+    {
+        return (int)(Math.random() * width);
+    }
+    public int ranY()
+    {
+        return (int)(Math.random() * height);
     }
     public static void selectivity(boolean select)
     {
@@ -105,7 +139,7 @@ public class GameView extends SurfaceView
     public boolean onTouchEvent(MotionEvent event)
     {
         if(event.getAction() == MotionEvent.ACTION_DOWN && ableSelect)
-            getSelected((int)event.getX(), (int)event.getY());
+            getSelected((int) event.getX(), (int) event.getY());
         else if(event.getAction() == MotionEvent.ACTION_DOWN)
             buyProc((int)event.getX(),(int)event.getY());
 
@@ -177,7 +211,7 @@ public class GameView extends SurfaceView
             {
                 if(items.get(count).buy(bit))
                 {
-                    addSprite();
+                    addSprite(count);
                     bought = true;
                 }
             }
