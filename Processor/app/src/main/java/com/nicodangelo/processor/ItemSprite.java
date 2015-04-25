@@ -7,9 +7,8 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * Created by Jetts on 4/21/2015.
- */
+import com.nicodangelo.bits.Bit;
+
 public class ItemSprite
 {
     private GameView game;
@@ -30,18 +29,16 @@ public class ItemSprite
 
     public void onDraw(Canvas canvas)
     {
-        tick();
         canvas.drawBitmap(b,x,y,null);
     }
-
+    public void buy(Bit b)
+    {
+        if(b.getBits() >= (long)price)
+            b.subtractBits((long)price);
+    }
     private void tick()
     {
-        if((x + b.getWidth()) + speed <= 1080)
-            speed = -speed;
-        else if(x + speed >=0)
-            speed = -speed;
 
-        x = x + speed;
     }
     public boolean clickedInside(int x, int y)
     {

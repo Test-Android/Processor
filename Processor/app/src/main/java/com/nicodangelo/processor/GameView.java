@@ -26,7 +26,7 @@ public class GameView extends SurfaceView
     private SurfaceHolder holder;
     private Game game;
     public  ArrayList<ProcessorSprite> sprites;
-    private ItemSprite itemSprite;
+    private ArrayList<ItemSprite> items;
     private Bit bit;
     private int selected = 0;
     private final int width;
@@ -44,6 +44,7 @@ public class GameView extends SurfaceView
         this.width = width;
         this.height = height;
         sprites = new ArrayList<ProcessorSprite>();
+        items = new ArrayList<ItemSprite>();
         game = new Game(this, bit);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -75,8 +76,8 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
         sprites.add(new ProcessorSprite(this,bmp,800,100));
-        bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        itemSprite = new ItemSprite(this,bmp,0,0,0);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        items.add(new ItemSprite())
         lastClick = System.nanoTime();
     }
 
@@ -157,6 +158,17 @@ public class GameView extends SurfaceView
                     int lastSelected = selected;
                     selected = k;
                     updateSelected(lastSelected, selected);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            for(int k = 0; k < items.size(); k++)
+            {
+                if(items.get(k).clickedInside(x,y))
+                {
+                    items.get(k).buy(bit);
                     break;
                 }
             }
