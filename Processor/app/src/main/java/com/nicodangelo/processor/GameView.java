@@ -27,7 +27,7 @@ public class GameView extends SurfaceView
     public  ArrayList<ProcessorSprite>  sprites = new ArrayList<ProcessorSprite>();
     private ArrayList<ItemSprite>   items = new ArrayList<ItemSprite>();
     private ArrayList<TempSprite> temps = new ArrayList<TempSprite>();
-    private Bitmap[] smoke = new Bitmap[10];
+    //private Bitmap[] smoke = new Bitmap[10];
     private Bit bit;
     private int selected = 0;
     private final int width;
@@ -112,34 +112,25 @@ public class GameView extends SurfaceView
     }
     private void createSmoke(float x, float y)
     {
-<<<<<<< HEAD
         //Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
-        for(int k = 0; k < 2; k++)
-=======
-        Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star_spred);
         int bitX = 0;
         int bitY = 0;
         for(int k = 0; k < 9; k++)
->>>>>>> origin/master
         {
-            int[] pixels = new int[smoke.getWidth() * smoke.getHeight()];
-            if(bitX != smoke.getWidth() - 100)
-            {
-                smoke.getPixels(pixels,100,smoke.getWidth(),bitX,bitY,100,100);
-                bitX+=100;
-            }
-            else
-            {
-                bitX = 0;
-                bitY = 100;
-            }
+            //int[] pixels = new int[smoke.getWidth() * smoke.getHeight()];
+            //if(bitX != smoke.getWidth() - 100)
+           // {
+            //    smoke.getPixels(pixels,100,smoke.getWidth(),bitX,bitY,100,100);
+           //     bitX+=100;
+           // }
+           // else
+           // {
+            //    bitX = 0;
+           //     bitY = 100;
+           // }
 //            this.smoke[k].setPixels(pixels,0,smoke.getWidth() / 5,0,0,smoke.getWidth() / 5,100);
         }
-<<<<<<< HEAD
         //temps.add(new TempSprite(temps,this,x,y,stars));
-=======
-        temps.add(new TempSprite(temps,this,x,y,smoke));
->>>>>>> origin/master
     }
     public int ranX()
     {
