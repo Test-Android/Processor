@@ -1,4 +1,7 @@
 //@author Jett Kasper
+/*
+Manages all game touch events, manages game thread with initialization, keeps track of "bits", updates all game visuals and some helper methods
+ */
 
 package com.nicodangelo.processor;
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 
 public class GameView extends SurfaceView
 {
+    //all global variables
     private SurfaceHolder holder;
     private Game game;
     public  ArrayList<ProcessorSprite>  sprites = new ArrayList<ProcessorSprite>();
@@ -33,6 +37,8 @@ public class GameView extends SurfaceView
     private static boolean ableSelect = true;
     private long lastClick;
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //MAIN CONSTRUCTOR
     public GameView(Context context, int width, int height, Bit bit)
     {
         super(context);
@@ -67,8 +73,22 @@ public class GameView extends SurfaceView
             }
         });
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //THE VISUAL UPDATE METHOD
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+        canvas.drawColor(Color.WHITE);
 
+        for(int k = 0; k < sprites.size(); k++)
+            sprites.get(k).onDraw(canvas);
+        for(int k = 0; k < items.size(); k++)
+            items.get(k).onDraw(canvas);
+    }
+
+    //TODO: take this out after some time (for us:))
+    //Initializes the sprites
     public void decodeResources()
     {
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
@@ -85,16 +105,8 @@ public class GameView extends SurfaceView
         lastClick = System.nanoTime();
     }
 
-    @Override
-    protected void onDraw(Canvas canvas)
-    {
-        canvas.drawColor(Color.WHITE);
-
-        for(int k = 0; k < sprites.size(); k++)
-            sprites.get(k).onDraw(canvas);
-        for(int k = 0; k < items.size(); k++)
-            items.get(k).onDraw(canvas);
-    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //creates a randomly placed sprite on the screen
     public void addSprite(int type)
     {
         Bitmap bmp;
@@ -114,19 +126,28 @@ public class GameView extends SurfaceView
 
     }
 
-    public int ranX()
+    //Creates a sprite at given x, y value
+    public void addSprite(int type, int x, int y)
     {
-        return (int)(Math.random() * width);
+        Bitmap b;
+        switch(type)
+        {
+            case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_2);
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            case 2: b = BitmapFactory.decodeResource(getResources(),R.drawable.star2);
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
+            default: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_1);
+                sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
+        }
     }
-    public int ranY()
-    {
-        return (int)(Math.random() * height);
-    }
-    public static void selectivity(boolean select)
-    {
-        ableSelect = select;
-    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //WHEN EVER THE SCREEN IS TOUCHED!
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -173,9 +194,11 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        //return super.onTouchEvent(event);
         return true;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //runs through all sprites on the screen and will select the one you click
     public void getSelected(int x, int y)
     {
         if(ableSelect)
@@ -193,6 +216,8 @@ public class GameView extends SurfaceView
             }
         }
     }
+
+    //"purchases" a processor and takes away from the total bits
     public void buyProc(int x, int y)
     {
         int count = 0;
@@ -210,6 +235,8 @@ public class GameView extends SurfaceView
             count++;
         }
     }
+
+    //Unhighlight the previous Sprite and rehightlight the selected.
     public void updateSelected(int old, int cur)
     {
         Bitmap b;
@@ -243,6 +270,10 @@ public class GameView extends SurfaceView
                 sprites.get(cur).updateBit(b); break;
         }
     }
+
+    //If two Items are within  a given thresh hold of one another
+    //They will deletes the two previous Items and creates a new one
+    //One tier obove the two old ones.
     public void connect(int x1, int x2)
     {
         int x = sprites.get(selected).getX();
@@ -258,22 +289,34 @@ public class GameView extends SurfaceView
             sprites.remove(x1);
             sprites.remove(x2);
         }
-
-        Bitmap b;
-        switch(type)
-        {
-            case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_2);
-                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            case 2: b = BitmapFactory.decodeResource(getResources(),R.drawable.star2);
-                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
-                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            default: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_1);
-                sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
-        }
+        addSprite(type,x,y);
 
         selected = sprites.size() - 1;
     }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    All one liners!!!!
+     */
+
+    //returns random x value with in the screen width
+    public int ranX()
+    {
+        return (int)(Math.random() * width);
+    }
+
+    //returns random y value with in the screen height
+    public int ranY()
+    {
+        return (int)(Math.random() * height);
+    }
+
+    //determines wither or not motion is allowed by the user
+    public static void selectivity(boolean select)
+    {
+        ableSelect = select;
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
