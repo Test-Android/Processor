@@ -12,7 +12,7 @@ public class TempSprite
     private float x;
     private float y;
     private Bitmap b;
-    private int life = 10;
+    private int life = 9;
     private List<TempSprite> temps;
 
     public TempSprite(List<TempSprite> temps, GameView game, float x, float y,Bitmap b)
