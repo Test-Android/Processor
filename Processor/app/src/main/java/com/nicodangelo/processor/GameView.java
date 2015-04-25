@@ -43,18 +43,22 @@ public class GameView extends SurfaceView
         this.height = height;
         game = new Game(this, bit);
         holder = getHolder();
-        holder.addCallback(new SurfaceHolder.Callback() {
+        holder.addCallback(new SurfaceHolder.Callback()
+        {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder)
             {
-                System.out.println("SHOULD HAVE BEEN STARTED");
+                System.out.println("STARTED");
                 game.start();
+                decodeResources();
             }
+
             @Override
             public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i2, int i3)
             {
 
             }
+
             @Override
             public void surfaceDestroyed(SurfaceHolder surfaceHolder)
             {
@@ -62,7 +66,11 @@ public class GameView extends SurfaceView
                 System.out.println("STOPPING THE GAME");
             }
         });
+    }
 
+
+    public void decodeResources()
+    {
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
@@ -86,8 +94,6 @@ public class GameView extends SurfaceView
             sprites.get(k).onDraw(canvas);
         for(int k = 0; k < items.size(); k++)
             items.get(k).onDraw(canvas);
-//        for(int k = 0; k < temps.size(); k++)
-  //          temps.get(k).onDraw(canvas);
     }
     public void addSprite(int type)
     {
