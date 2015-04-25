@@ -104,7 +104,10 @@ public class GameView extends SurfaceView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        getSelected((int)event.getX(), (int)event.getY());
+        if(event.getAction() == MotionEvent.ACTION_DOWN && ableSelect)
+            getSelected((int)event.getX(), (int)event.getY());
+        else if(event.getAction() == MotionEvent.ACTION_DOWN)
+            buyProc((int)event.getX(),(int)event.getY());
 
         if(selected >= sprites.size())
             selected = 0;
@@ -163,19 +166,22 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        else
+    }
+    public void buyProc(int x, int y)
+    {
+        int count = 0;
+        boolean bought = false;
+        while(count < items.size() && !bought)
         {
-            for(int k = 0; k < items.size(); k++)
+            if(items.get(count).clickedInside(x,y))
             {
-                if(items.get(k).clickedInside(x,y))
+                if(items.get(count).buy(bit))
                 {
-                    if(items.get(k).buy(bit))
-                    {
-                        sprites.add(new ProcessorSprite(this,BitmapFactory.decodeResource(getResources(),R.drawable.proc_1),(int)(Math.random() * (width - 100)),(int)(Math.random() * (height - 100))));
-                    }
-                    break;
+                    addSprite();
+                    bought = true;
                 }
             }
+            count++;
         }
     }
     public void updateSelected(int old, int cur)
