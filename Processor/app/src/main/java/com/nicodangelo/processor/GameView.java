@@ -67,7 +67,7 @@ public class GameView extends SurfaceView
             }
         });
 
-        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
@@ -92,7 +92,7 @@ public class GameView extends SurfaceView
     }
     public void addSprite()
     {
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
         sprites.add(new ProcessorSprite(this,bmp,(int)(Math.random() * 700),(int)(Math.random() * 1000)));
     }
     public static void selectivity(boolean select)
@@ -179,7 +179,7 @@ public class GameView extends SurfaceView
         Bitmap b;
         switch(sprites.get(old).getType())
         {
-            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
                     sprites.get(old).updateBit(b); break;
             case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
                 sprites.get(old).updateBit(b); break;
@@ -195,7 +195,7 @@ public class GameView extends SurfaceView
 //TODO     JUST SOMETHING SIMPLE LIKE A RED OUTLINE WOULD WORK
         switch(sprites.get(cur).getType())
         {
-            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.selstar1);
+            case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_sel_1);
                 sprites.get(cur).updateBit(b); break;
             case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.selrenderme);
                 sprites.get(cur).updateBit(b); break;
@@ -233,7 +233,7 @@ public class GameView extends SurfaceView
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            default: b = BitmapFactory.decodeResource(getResources(),R.drawable.star1);
+            default: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_1);
                 sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
         }
         selected = sprites.size() - 1;
