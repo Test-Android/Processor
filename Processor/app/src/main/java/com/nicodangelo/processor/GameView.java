@@ -191,7 +191,7 @@ public class GameView extends SurfaceView
         {
             case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
                     sprites.get(old).updateBit(b); break;
-            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
+            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_2);
                 sprites.get(old).updateBit(b); break;
             case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
                 sprites.get(old).updateBit(b); break;
@@ -207,7 +207,7 @@ public class GameView extends SurfaceView
         {
             case 0: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_sel_1);
                 sprites.get(cur).updateBit(b); break;
-            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.selrenderme);
+            case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_sel_2);
                 sprites.get(cur).updateBit(b); break;
             case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.selstar2);
                 sprites.get(cur).updateBit(b); break;
@@ -235,7 +235,7 @@ public class GameView extends SurfaceView
         Bitmap b;
         switch(type)
         {
-            case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.renderme);
+            case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_2);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             case 2: b = BitmapFactory.decodeResource(getResources(),R.drawable.star2);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
