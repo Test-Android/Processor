@@ -269,8 +269,9 @@ public class Large
 				temp.sub(l);
 			}
 			num.clear();
-			for(int k = 0; k < l.getSize(); k++)
-				num.add(l.getDigit(k));
+            String str = Long.toString(total);
+			for(int k = str.length() - 1; k > 0; k--)
+				num.add(convertInt(str,k));
 			
 		}
 	}

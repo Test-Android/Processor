@@ -70,15 +70,19 @@ public class ProcessorSprite
 
     public void changePos(float x, float y, int screenWidth, int screenHeight)
     {
-        if(x + b.getWidth() >= screenWidth)
+        if(x + (b.getWidth() / 2) >= screenWidth)
             this.x = screenWidth - b.getWidth();
+        else if(x - (b.getWidth() / 2) < 0)
+            this.x = 0;
         else
-            this.x = (int)x;
+            this.x = (int)x - b.getWidth() / 2;
 
-        if(y + b.getHeight() >= screenHeight)
+        if(y + (b.getHeight() / 2) >= screenHeight)
             this.y = screenHeight - b.getHeight();
+        else if(y - (b.getHeight() / 2) < 0)
+            this.y = 0;
         else
-            this.y = (int)y;
+            this.y = (int)y - b.getHeight() / 2;
     }
     public static Boolean collision(Rect selected, Rect temp)
     {
