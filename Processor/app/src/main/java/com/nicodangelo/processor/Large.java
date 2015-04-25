@@ -79,6 +79,12 @@ public class Large
 			}
 		}
 	}
+	private Large(ArrayList<Integer> n)
+	{
+		num = new ArrayList<Integer>();
+		for(int k = 0; k < n.size(); k++)
+			num.add(n.get(k));
+	}
 	public void add(Large l)
 	{
 		if(l.getSize() > num.size())
@@ -234,6 +240,39 @@ public class Large
 				num.add(total.getDigit(k));
 		}
 			
+	}
+	public void div(Large l)
+	{
+		if(num.size() == 1 && num.get(0) == 0)
+		{
+			num.clear();
+			num.add(0);
+		}
+		else if(l.getSize() == 1 && l.getDigit(0) == 0)
+		{
+			try
+			{
+				throw new Exception("You can't divide by zero");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			Large temp = new Large(num);
+			long total = 0;
+			while(isLarger(num,l));
+			{
+				total++;
+				temp.sub(l);
+			}
+			num.clear();
+			for(int k = 0; k < l.getSize(); k++)
+				num.add(l.getDigit(k));
+			
+		}
 	}
 	private void moveDown(int l)
 	{
