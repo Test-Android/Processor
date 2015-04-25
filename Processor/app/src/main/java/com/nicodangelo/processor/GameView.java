@@ -80,17 +80,19 @@ public class GameView extends SurfaceView
     protected void onDraw(Canvas canvas)
     {
         canvas.drawColor(Color.WHITE);
-
-        for(int k = 0; k < sprites.size(); k++)
-            sprites.get(k).onDraw(canvas);
         for(int k = 0; k < items.size(); k++)
             items.get(k).onDraw(canvas);
+        for(int k = 0; k < sprites.size(); k++)
+            sprites.get(k).onDraw(canvas);
+        for(int k = 0; k < temps.size(); k++)
+            temps.get(k).onDraw(canvas);
+
     }
 
     //TODO: take this out after some time (for us:))
     //Initializes the sprites
     public void decodeResources()
-    {
+     {
         Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
@@ -146,6 +148,15 @@ public class GameView extends SurfaceView
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //TODO: Attempting to use the temp sprites
+    //TODO: GET SEPERATE BITMAPS DEPENDING ON THE LIFE OF
+    //TODO: THE TEMPSPRITE OBJECT(initalize them in the tempsprite
+    //TODO: class maybe?)
+    public void createTemp(int x, int y)
+    {
+        temps.add(new TempSprite(temps,this,(float)x,(float)y,BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //WHEN EVER THE SCREEN IS TOUCHED!
     @Override
@@ -290,7 +301,7 @@ public class GameView extends SurfaceView
             sprites.remove(x2);
         }
         addSprite(type,x,y);
-
+        createTemp(x,y);
         selected = sprites.size() - 1;
     }
 

@@ -13,6 +13,7 @@ public class TempSprite
     private float y;
     private Bitmap b;
     private int life = 9;
+    private Bitmap smoke[];
     private List<TempSprite> temps;
 
     public TempSprite(List<TempSprite> temps, GameView game, float x, float y,Bitmap b)
@@ -22,7 +23,6 @@ public class TempSprite
         this.b = b;
         this.temps = temps;
     }
-
     public void onDraw(Canvas canvas)
     {
         update();
