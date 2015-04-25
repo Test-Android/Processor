@@ -110,12 +110,12 @@ public class GameView extends SurfaceView
     }
     private void createSmoke(float x, float y)
     {
-        Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
+        //Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
         for(int k = 0; k < 2; k++)
         {
 
         }
-        temps.add(new TempSprite(temps,this,x,y,stars));
+        //temps.add(new TempSprite(temps,this,x,y,stars));
     }
     public int ranX()
     {
