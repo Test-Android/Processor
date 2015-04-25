@@ -39,27 +39,16 @@ public class Main extends Activity
         b.setBackgroundColor(Color.BLACK);
         b.setTextColor(Color.WHITE);
         b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (pause) {
-                    pause = false;
-                    Game.paused(false);
-                } else {
-                    pause = true;
-                    Game.paused(true);
-                }
-            }
-        });
-
-        Button add = new Button(this);
-        add.setText("add");
-        add.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-               game.addSprite();
-            }
+                                 @Override
+                                 public void onClick(View view) {
+                                     if (pause) {
+                                         pause = false;
+                                         Game.paused(false);
+                                     } else {
+                                         pause = true;
+                                         Game.paused(true);
+                                     }
+                                 }
         });
 
         ImageView iv = new ImageView(this);
@@ -83,7 +72,6 @@ public class Main extends Activity
         });
 
         gameButtons.addView(b);
-        gameButtons.addView(add);
         gameButtons.addView(iv);
 
         layout.addView(game);

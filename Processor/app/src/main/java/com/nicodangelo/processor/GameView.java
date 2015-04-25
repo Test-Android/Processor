@@ -76,7 +76,7 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
         sprites.add(new ProcessorSprite(this,bmp,800,100));
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.add_button);
         items.add(new ItemSprite(this,bmp,width - 70, height - 200,8));
         lastClick = System.nanoTime();
     }
@@ -169,7 +169,10 @@ public class GameView extends SurfaceView
             {
                 if(items.get(k).clickedInside(x,y))
                 {
-                    items.get(k).buy(bit);
+                    if(items.get(k).buy(bit))
+                    {
+                        sprites.add(new ProcessorSprite(this,BitmapFactory.decodeResource(getResources(),R.drawable.proc_1),(int)(Math.random() * (width - 100)),(int)(Math.random() * (height - 100))));
+                    }
                     break;
                 }
             }

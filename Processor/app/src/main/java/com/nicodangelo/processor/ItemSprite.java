@@ -31,10 +31,15 @@ public class ItemSprite
     {
         canvas.drawBitmap(b,x,y,null);
     }
-    public void buy(Bit b)
+    public Boolean buy(Bit b)
     {
         if(b.getBits() >= (long)price)
+        {
             b.subtractBits((long)price);
+            return true;
+        }
+        else
+            return false;
     }
     private void tick()
     {
