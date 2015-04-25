@@ -1,3 +1,5 @@
+//@author Jett Kasper
+
 package com.nicodangelo.processor;
 
 import android.content.Context;
@@ -17,9 +19,6 @@ import com.nicodangelo.bits.Bit;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jetts on 4/20/2015.
- */
 public class GameView extends SurfaceView
 {
     private SurfaceHolder holder;
@@ -27,21 +26,19 @@ public class GameView extends SurfaceView
     public  ArrayList<ProcessorSprite>  sprites = new ArrayList<ProcessorSprite>();
     private ArrayList<ItemSprite>   items = new ArrayList<ItemSprite>();
     private ArrayList<TempSprite> temps = new ArrayList<TempSprite>();
-    //private Bitmap[] smoke = new Bitmap[10];
     private Bit bit;
     private int selected = 0;
     private final int width;
     private final int height;
     private static boolean ableSelect = true;
     private long lastClick;
+
     public GameView(Context context, int width, int height, Bit bit)
     {
         super(context);
 
         //make sure to connect the bit to "bit"
         this.bit = bit;
-
-        System.out.println("got to the context.");
         this.width = width;
         this.height = height;
         game = new Game(this, bit);
@@ -110,28 +107,7 @@ public class GameView extends SurfaceView
         }
 
     }
-    private void createSmoke(float x, float y)
-    {
-        //Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
-        int bitX = 0;
-        int bitY = 0;
-        for(int k = 0; k < 9; k++)
-        {
-            //int[] pixels = new int[smoke.getWidth() * smoke.getHeight()];
-            //if(bitX != smoke.getWidth() - 100)
-           // {
-            //    smoke.getPixels(pixels,100,smoke.getWidth(),bitX,bitY,100,100);
-           //     bitX+=100;
-           // }
-           // else
-           // {
-            //    bitX = 0;
-           //     bitY = 100;
-           // }
-//            this.smoke[k].setPixels(pixels,0,smoke.getWidth() / 5,0,0,smoke.getWidth() / 5,100);
-        }
-        //temps.add(new TempSprite(temps,this,x,y,stars));
-    }
+
     public int ranX()
     {
         return (int)(Math.random() * width);
@@ -276,7 +252,7 @@ public class GameView extends SurfaceView
             sprites.remove(x1);
             sprites.remove(x2);
         }
-        createSmoke((float)x,(float)y);
+
         Bitmap b;
         switch(type)
         {
