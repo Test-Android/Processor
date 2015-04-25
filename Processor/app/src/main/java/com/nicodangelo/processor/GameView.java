@@ -89,6 +89,8 @@ public class GameView extends SurfaceView
             sprites.get(k).onDraw(canvas);
         for(int k = 0; k < items.size(); k++)
             items.get(k).onDraw(canvas);
+//        for(int k = 0; k < temps.size(); k++)
+  //          temps.get(k).onDraw(canvas);
     }
     public void addSprite(int type)
     {
@@ -110,12 +112,25 @@ public class GameView extends SurfaceView
     }
     private void createSmoke(float x, float y)
     {
-        Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
-        for(int k = 0; k < 2; k++)
+        Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star_spred);
+        int bitX = 0;
+        int bitY = 0;
+        for(int k = 0; k < 9; k++)
         {
-
+            int[] pixels = new int[smoke.getWidth() * smoke.getHeight()];
+            if(bitX != smoke.getWidth() - 100)
+            {
+                smoke.getPixels(pixels,100,smoke.getWidth(),bitX,bitY,100,100);
+                bitX+=100;
+            }
+            else
+            {
+                bitX = 0;
+                bitY = 100;
+            }
+//            this.smoke[k].setPixels(pixels,0,smoke.getWidth() / 5,0,0,smoke.getWidth() / 5,100);
         }
-        temps.add(new TempSprite(temps,this,x,y,stars));
+        temps.add(new TempSprite(temps,this,x,y,smoke));
     }
     public int ranX()
     {
@@ -261,6 +276,7 @@ public class GameView extends SurfaceView
             sprites.remove(x1);
             sprites.remove(x2);
         }
+        createSmoke((float)x,(float)y);
         Bitmap b;
         switch(type)
         {
@@ -275,6 +291,7 @@ public class GameView extends SurfaceView
             default: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_1);
                 sprites.add(new ProcessorSprite(this,b,x,y,0)); break;
         }
+
         selected = sprites.size() - 1;
     }
 }
