@@ -77,7 +77,7 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,400,500));
         sprites.add(new ProcessorSprite(this,bmp,800,100));
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star1);
-        items.add(new ItemSprite())
+        items.add(new ItemSprite(this,bmp,width - 70, height - 200,8));
         lastClick = System.nanoTime();
     }
 
@@ -88,7 +88,8 @@ public class GameView extends SurfaceView
 
         for(int k = 0; k < sprites.size(); k++)
             sprites.get(k).onDraw(canvas);
-        itemSprite.onDraw(canvas);
+        for(int k = 0; k < items.size(); k++)
+            items.get(k).onDraw(canvas);
     }
     public void addSprite()
     {
