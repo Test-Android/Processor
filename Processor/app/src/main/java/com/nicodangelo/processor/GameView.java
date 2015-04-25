@@ -5,21 +5,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.text.Layout;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.TextView;
 
+import com.nicodangelo.Sprites.ItemSprite;
+import com.nicodangelo.Sprites.ProcessorSprite;
+import com.nicodangelo.Sprites.TempSprite;
 import com.nicodangelo.bits.Bit;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Jetts on 4/20/2015.
@@ -28,8 +24,10 @@ public class GameView extends SurfaceView
 {
     private SurfaceHolder holder;
     private Game game;
-    public  ArrayList<ProcessorSprite> sprites;
-    private ArrayList<ItemSprite> items;
+    public  ArrayList<ProcessorSprite>  sprites = new ArrayList<ProcessorSprite>();
+    private ArrayList<ItemSprite>   items = new ArrayList<ItemSprite>();
+    private ArrayList<TempSprite> temps = new ArrayList<TempSprite>();
+    private Bitmap[] smoke = new Bitmap[10];
     private Bit bit;
     private int selected = 0;
     private final int width;
@@ -46,8 +44,6 @@ public class GameView extends SurfaceView
         System.out.println("got to the context.");
         this.width = width;
         this.height = height;
-        sprites = new ArrayList<ProcessorSprite>();
-        items = new ArrayList<ItemSprite>();
         game = new Game(this, bit);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -78,18 +74,8 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,200,900));
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
-        sprites.add(new ProcessorSprite(this,bmp,800,100));
-        bmp = Bitmap.createBitmap(200, 100, Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bmp);
-
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE); // Text Color
-        paint.setTextSize(30); // Text Size
-        paint.setTextAlign(Paint.Align.CENTER);
-        // some more settings...
-
-        canvas.drawBitmap(bmp, 0, 0, paint);
-        canvas.drawText("Testing...", 0, bmp.getHeight() / 2, paint);
+        sprites.add(new ProcessorSprite(this, bmp, 800, 100));
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.add_button);
         items.add(new ItemSprite(this,bmp,width - 250, 200,8));
         lastClick = System.nanoTime();
     }
@@ -121,6 +107,15 @@ public class GameView extends SurfaceView
                 sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
         }
 
+    }
+    private void createSmoke(float x, float y)
+    {
+        Bitmap smoke = BitmapFactory.decodeResource(getResources(), R.drawable.star)
+        for(int k = 0; k < 2; k++)
+        {
+
+        }
+        temps.add(new TempSprite(temps,this,x,y,stars));
     }
     public int ranX()
     {
