@@ -153,6 +153,7 @@ public class GameView extends SurfaceView
     //TODO: GET SEPERATE BITMAPS DEPENDING ON THE LIFE OF
     //TODO: THE TEMPSPRITE OBJECT(initalize them in the tempsprite
     //TODO: class maybe?)
+    //TODO: Bitmap yourBitmap = Bitmap.createBitmap(sourceBitmap, x to start from, y to start from, width, height) lets try this
     public void createTemp(int x, int y)
     {
         temps.add(new TempSprite(temps,this,(float)x,(float)y,BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
