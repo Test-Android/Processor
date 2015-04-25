@@ -1,4 +1,4 @@
-package com.nicodangelo.processor;
+package com.nicodangelo.Sprites;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,8 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.nicodangelo.processor.GameView;
 
 public class ProcessorSprite
 {

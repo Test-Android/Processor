@@ -1,4 +1,4 @@
-package com.nicodangelo.processor;
+package com.nicodangelo.Sprites;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.nicodangelo.bits.Bit;
+import com.nicodangelo.processor.GameView;
 
 public class ItemSprite
 {
