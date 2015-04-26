@@ -27,9 +27,10 @@ public class GameView extends SurfaceView
     //all global variables
     private SurfaceHolder holder;
     private Game game;
-    public  ArrayList<ProcessorSprite>  sprites = new ArrayList<ProcessorSprite>();
-    private ArrayList<ItemSprite>   items = new ArrayList<ItemSprite>();
-    private ArrayList<TempSprite> temps = new ArrayList<TempSprite>();
+    protected  ArrayList<ProcessorSprite>  sprites;
+    private ArrayList<ItemSprite>   items;
+    private ArrayList<TempSprite> temps;
+    private Bitmap smoke[];
     private Bit bit;
     private int selected = 0;
     private final int width;
@@ -47,6 +48,14 @@ public class GameView extends SurfaceView
         this.bit = bit;
         this.width = width;
         this.height = height;
+
+
+        sprites = new ArrayList<ProcessorSprite>();
+        items = new ArrayList<ItemSprite>();
+        temps = new ArrayList<TempSprite>();
+        smoke = new Bitmap[9];
+
+
         game = new Game(this, bit);
         holder = getHolder();
         holder.addCallback(new SurfaceHolder.Callback()
@@ -56,6 +65,8 @@ public class GameView extends SurfaceView
             {
                 System.out.println("STARTED");
                 game.start();
+                createSmoke();
+                createButtons();
                 decodeResources();
             }
 
@@ -72,6 +83,7 @@ public class GameView extends SurfaceView
                 System.out.println("STOPPING THE GAME");
             }
         });
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,13 +91,13 @@ public class GameView extends SurfaceView
     @Override
     protected void onDraw(Canvas canvas)
     {
-        canvas.drawColor(Color.WHITE);
-        for(int k = 0; k < items.size(); k++)
-            items.get(k).onDraw(canvas);
+        canvas.drawColor(Color.rgb(59,147,229));
         for(int k = 0; k < sprites.size(); k++)
             sprites.get(k).onDraw(canvas);
         for(int k = 0; k < temps.size(); k++)
             temps.get(k).onDraw(canvas);
+        for(int k = 0; k < items.size(); k++)
+            items.get(k).onDraw(canvas);
 
     }
 
@@ -102,9 +114,16 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this,bmp,700,200));
         sprites.add(new ProcessorSprite(this,bmp,400,500));
         sprites.add(new ProcessorSprite(this, bmp, 800, 100));
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.add_button);
-        items.add(new ItemSprite(this,bmp,width - 250, 200,8));
         lastClick = System.nanoTime();
+    }
+    public void createButtons()
+    {
+        Bitmap bmp;
+
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.buy_button_1);
+        items.add(new ItemSprite(this,bmp,width - 350, 200,16));
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.buy_button_2);
+        items.add(new ItemSprite(this,bmp,width - 350, 350,64));
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,15 +134,15 @@ public class GameView extends SurfaceView
         switch(type)
         {
             case 0: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
-                    sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
-            case 1: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.renderme);
-                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+                    sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
+            case 1: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_2);
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
             case 2: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
-                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
             case 3: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
-                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
             case 4: bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY())); break;
+                sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
         }
 
     }
@@ -156,7 +175,21 @@ public class GameView extends SurfaceView
     //TODO: Bitmap yourBitmap = Bitmap.createBitmap(sourceBitmap, x to start from, y to start from, width, height) lets try this
     public void createTemp(int x, int y)
     {
-        temps.add(new TempSprite(temps,this,(float)x,(float)y,BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+        temps.add(new TempSprite(temps,this,(float)x,(float)y,this.smoke));
+    }
+    public void createSmoke()
+    {
+        this.smoke[0] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_1);
+        this.smoke[1] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_2);
+        this.smoke[2] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_3);
+        this.smoke[3] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_4);
+        this.smoke[4] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_5);
+        this.smoke[5] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_6);
+        this.smoke[6] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_7);
+        this.smoke[7] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_8);
+        this.smoke[8] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_9);
+
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //WHEN EVER THE SCREEN IS TOUCHED!
