@@ -137,7 +137,7 @@ public class GameView extends SurfaceView
                     sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
             case 1: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_2);
                 sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
-            case 2: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+            case 2: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.proc_3);
                 sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
             case 3: bmp = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
                 sprites.add(new ProcessorSprite(this,bmp,ranX(),ranY(),type)); break;
@@ -155,7 +155,7 @@ public class GameView extends SurfaceView
         {
             case 1: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_2);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
-            case 2: b = BitmapFactory.decodeResource(getResources(),R.drawable.star2);
+            case 2: b = BitmapFactory.decodeResource(getResources(),R.drawable.proc_3);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
             case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
                 sprites.add(new ProcessorSprite(this,b,x,y,type)); break;
@@ -291,7 +291,7 @@ public class GameView extends SurfaceView
                     sprites.get(old).updateBit(b); break;
             case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_2);
                 sprites.get(old).updateBit(b); break;
-            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.star2);
+            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_3);
                 sprites.get(old).updateBit(b); break;
             case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.renderme2);
                 sprites.get(old).updateBit(b); break;
@@ -307,7 +307,7 @@ public class GameView extends SurfaceView
                 sprites.get(cur).updateBit(b); break;
             case 1: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_sel_2);
                 sprites.get(cur).updateBit(b); break;
-            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.selstar2);
+            case 2: b = BitmapFactory.decodeResource(getResources(), R.drawable.proc_sel_3);
                 sprites.get(cur).updateBit(b); break;
             case 3: b = BitmapFactory.decodeResource(getResources(), R.drawable.selrenderme2);
                 sprites.get(cur).updateBit(b); break;
