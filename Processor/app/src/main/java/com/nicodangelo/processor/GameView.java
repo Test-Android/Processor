@@ -10,6 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -119,13 +122,34 @@ public class GameView extends SurfaceView
     public void createButtons()
     {
         Bitmap bmp;
-
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.buy_button_1);
+        bmp = createTextBit("Buy: 16b Processor" );
         items.add(new ItemSprite(this,bmp,width - 350, 200,16));
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.buy_button_2);
         items.add(new ItemSprite(this,bmp,width - 350, 350,64));
     }
 
+    //TODO: ADD EXCEPTIONS FOR THIS, NEED TO CREATE BITMAP DEPENDING ON TEXT
+    //TODO: ALSO NEED TO MAKE RECTANGLE ON A LAYER UNDER THE TEXT
+
+    public Bitmap createTextBit(String s)
+    {
+        Bitmap bmp = Bitmap.createBitmap(200,100, Bitmap.Config.ARGB_8888);
+        String a[] = s.split(" ");
+        String n = a[0] + " " + a[1];
+        Paint p = new Paint();
+        Canvas c = new Canvas(bmp);
+        p.setColor(Color.YELLOW);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(5);
+        c.drawRect(0,0,200,100,p);
+
+        p.setColor(Color.BLACK);
+        p.setTextSize(40);
+        p.setStyle(Paint.Style.FILL);
+        c.drawText(n,10,50,p);
+        c.drawText(a[2],10,90,p);
+        return bmp;
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //creates a randomly placed sprite on the screen
     public void addSprite(int type)
