@@ -119,35 +119,14 @@ public class GameView extends SurfaceView
         sprites.add(new ProcessorSprite(this, bmp, 800, 100));
         lastClick = System.nanoTime();
     }
+    //This creates the buttons to buy processors
     public void createButtons()
     {
         Bitmap bmp;
-        bmp = createTextBit("Buy: 16b Processor" );
+        bmp = createTextBit("Buy: 16b Processor");
         items.add(new ItemSprite(this,bmp,width - 330, 200,16));
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.buy_button_2);
-        items.add(new ItemSprite(this,bmp,width - 350, 350,64));
-    }
-
-    //TODO: ADD EXCEPTIONS FOR THIS, NEED TO CREATE BITMAP DEPENDING ON TEXT
-    //TODO: ALSO NEED TO MAKE RECTANGLE ON A LAYER UNDER THE TEXT
-
-    public Bitmap createTextBit(String s)
-    {
-        Bitmap bmp = Bitmap.createBitmap(250,120, Bitmap.Config.ARGB_8888);
-        String a[] = s.split(" ");
-        String n = " " + a[0] + " " + a[1];
-        Paint p = new Paint();
-        Canvas c = new Canvas(bmp);
-        p.setColor(Color.BLACK);
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(6);
-        c.drawRect(0,0,250,110,p);
-
-        p.setTextSize(50);
-        p.setStyle(Paint.Style.FILL);
-        c.drawText(n,10,50,p);
-        c.drawText(a[2],10,100,p);
-        return bmp;
+        bmp = createTextBit("Buy: 64b Processor");
+        items.add(new ItemSprite(this,bmp,width - 330, 350,64));
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //creates a randomly placed sprite on the screen
@@ -213,6 +192,25 @@ public class GameView extends SurfaceView
         this.smoke[8] = BitmapFactory.decodeResource(getResources(),R.drawable.smoke_9);
 
 
+    }
+    //This creates and returns a bitmap containing the text you sent to it
+    public Bitmap createTextBit(String s)
+    {
+        Bitmap bmp = Bitmap.createBitmap(250,120, Bitmap.Config.ARGB_8888);
+        String a[] = s.split(" ");
+        String n = " " + a[0] + " " + a[1];
+        Paint p = new Paint();
+        Canvas c = new Canvas(bmp);
+        p.setColor(Color.BLACK);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(6);
+        c.drawRect(0,0,250,110,p);
+
+        p.setTextSize(50);
+        p.setStyle(Paint.Style.FILL);
+        c.drawText(n,10,50,p);
+        c.drawText(a[2],10,100,p);
+        return bmp;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //WHEN EVER THE SCREEN IS TOUCHED!
