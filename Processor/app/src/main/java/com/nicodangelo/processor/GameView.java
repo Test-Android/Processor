@@ -245,6 +245,13 @@ public class GameView extends SurfaceView
                 }
             }
         }
+        else if(MotionEven.ACTION_UP == event.getAction())
+        {
+            //now here is were we need to check for pieces connecting
+            //idk if we have a method for that but we need one...
+            //also i'm doing this in teh github site so if there are errors thats why
+        }
+        return true;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -316,9 +323,11 @@ public class GameView extends SurfaceView
         }
     } */
 
-    //If two Items are within  a given thresh hold of one another
+    //OLD: If two Items are within  a given thresh hold of one another
     //They will deletes the two previous Items and creates a new one
     //One tier obove the two old ones.
+    //NEW: need to run through the screen or sprites or something to check
+    // if they're connecting and then connect them;
     public void connect(int x1, int x2)
     {
         int x = sprites.get(selected).getX();
