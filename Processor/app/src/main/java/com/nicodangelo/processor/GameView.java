@@ -217,69 +217,48 @@ public class GameView extends SurfaceView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if(event.getAction() == MotionEvent.ACTION_DOWN && ableSelect)
-            getSelected((int) event.getX(), (int) event.getY());
-        else if(event.getAction() == MotionEvent.ACTION_DOWN)
-            buyProc((int)event.getX(),(int)event.getY());
+        
+        int curX = (int)event.getX();
+        int curY = (int)event.getY();
+        
 
-        if(selected >= sprites.size())
-            selected = 0;
-
-        if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
-            sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
-        else if(!ableSelect && event.getAction() == MotionEvent.ACTION_DOWN && System.nanoTime() - lastClick > 100000)
+        if(event.getAction() == MotionEvent.ACTION_MOVE)
         {
-            lastClick = System.nanoTime();
-
-            System.out.println("Selected sprite == " + selected);
-            System.out.println("X and Y inside seleceted == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
-            if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
+            int chosen = getSelected(curX,curY);
+            if(chosen != -1)
             {
-                switch(sprites.get(selected).getType())
+                sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
+            }
+        }
+        else if(MotionEvent.ACTION_DOWN == event.getAction())
+        {
+            int chosen = getSelected(curX,curY);
+            if(chosen != -1)
+            {
+                switch(sprites.get(chosen).getType())
                 {
                     case 0: bit.addBits(1); break;
                     case 1: bit.addBits(8); break;
                     case 2: bit.addBits(16); break;
                     case 3: bit.addBits(32); break;
                     case 4: bit.addBits(64); break;
-
                 }
             }
         }
-
-        if(sprites.size() != 1)
-        {
-            Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
-            for(int k = 0; k < sprites.size();k++)
-            {
-                Rect tempRect = new Rect(sprites.get(k).getX(),sprites.get(k).getY(),sprites.get(k).totalX(),sprites.get(k).totalY());
-                if(ProcessorSprite.collision(selectedRect, tempRect) && selected != k && sprites.get(selected).getType() == sprites.get(k).getType())
-                {
-                    connect(selected,k);
-                    break;
-                }
-            }
-        }
-        return true;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //runs through all sprites on the screen and will select the one you click
-    public void getSelected(int x, int y)
+    public int getSelected(int x, int y)
     {
-        if(ableSelect)
+        for(int k = sprites.size() - 1; k >= 0; k--)
         {
-            for(int k = sprites.size() - 1; k >= 0; k--)
+            if(sprites.get(k).clickedInside(x,y))
             {
-                if(sprites.get(k).clickedInside(x,y))
-                {
-                    System.out.println("SPRITE " + k + " CLICKED");
-                    int lastSelected = selected;
-                    selected = k;
-                    updateSelected(lastSelected, selected);
-                    break;
-                }
-            }
+                System.out.println("SPRITE " + k + " CLICKED");
+//                updateSelected(lastSelected, selected);
+                return k;
+            }            
         }
     }
 
@@ -303,7 +282,7 @@ public class GameView extends SurfaceView
     }
 
     //Unhighlight the previous Sprite and rehightlight the selected.
-    public void updateSelected(int old, int cur)
+/*    public void updateSelected(int old, int cur)
     {
         Bitmap b;
         switch(sprites.get(old).getType())
@@ -318,7 +297,7 @@ public class GameView extends SurfaceView
                 sprites.get(old).updateBit(b); break;
             case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                 sprites.get(old).updateBit(b); break;
-        }
+        }  
 
 //TODO     ADD SPRITE IMAGES FOR SELECTED ITEMS, I IMPLEMENTED THE ABILITY TO DO SO
 //TODO     JUST SOMETHING SIMPLE LIKE A RED OUTLINE WOULD WORK
@@ -335,7 +314,7 @@ public class GameView extends SurfaceView
             case 4: b = BitmapFactory.decodeResource(getResources(), R.drawable.selic_launcher);
                 sprites.get(cur).updateBit(b); break;
         }
-    }
+    } */
 
     //If two Items are within  a given thresh hold of one another
     //They will deletes the two previous Items and creates a new one
