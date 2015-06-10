@@ -228,7 +228,22 @@ public class GameView extends SurfaceView
             if(chosen != -1)
             {
                 sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
+                Rect rectOne = sprites.get(chosen).getRect();
+                for(int b = 0; b < sprites.size();b++)
+                {
+                    Rect rectTwo = sprites.get(b).getRect();
+                    if(sprites.get(chosen).getType() == sprites.get(b).getType())
+                    {
+                        if(ProcessorSprite.collision(rectOne,rectTwo))
+                        {
+                            connect(chosen, b);
+                            return true;
+                        }
+                    }
+                }
             }
+            
+            
         }
         else if(MotionEvent.ACTION_DOWN == event.getAction())
         {
@@ -245,7 +260,7 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        else if(MotionEvent.ACTION_UP == event.getAction())
+/*        else if(MotionEvent.ACTION_UP == event.getAction())
         {
             //now here is were we need to check for pieces connecting
             //idk if we have a method for that but we need one...
@@ -268,7 +283,7 @@ public class GameView extends SurfaceView
                     }
                 }
             }
-        }
+        }*/
         return true;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
