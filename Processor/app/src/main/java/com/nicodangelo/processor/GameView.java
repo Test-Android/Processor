@@ -245,11 +245,29 @@ public class GameView extends SurfaceView
                 }
             }
         }
-        else if(MotionEven.ACTION_UP == event.getAction())
+        else if(MotionEvent.ACTION_UP == event.getAction())
         {
             //now here is were we need to check for pieces connecting
             //idk if we have a method for that but we need one...
             //also i'm doing this in teh github site so if there are errors thats why
+            Rect one = new Rect(0,0,10,12);
+            for(int a = 0; a < sprites.size();a++)
+            {
+                Rect rectOne = sprites.get(a).getRect();
+
+                for(int b = 0; b < sprites.size();b++)
+                {
+                    Rect rectTwo = sprites.get(b).getRect();
+                    if(sprites.get(a).getType() == sprites.get(b).getType())
+                    {
+                        if(ProcessorSprite.collision(rectOne,rectTwo))
+                        {
+                            connect(a, b);
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return true;
     }
@@ -267,6 +285,7 @@ public class GameView extends SurfaceView
                 return k;
             }            
         }
+        return -1;
     }
 
     //"purchases" a processor and takes away from the total bits
