@@ -232,7 +232,7 @@ public class GameView extends SurfaceView
             lastClick = System.nanoTime();
 
             System.out.println("Selected sprite == " + selected);
-            System.out.println("X and Y inside seleceted == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
+            System.out.println("X and Y inside sele == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
             if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
             {
                 switch(sprites.get(selected).getType())
