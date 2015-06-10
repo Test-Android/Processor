@@ -125,4 +125,8 @@ public class ProcessorSprite
     {
         return this.y + b.getHeight();
     }
+    public Rect getRect()
+    {
+        return new Rect(x,y,b.getWidth(),b.getHeight());
+    }
 }

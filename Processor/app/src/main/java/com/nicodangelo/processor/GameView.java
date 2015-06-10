@@ -217,70 +217,98 @@ public class GameView extends SurfaceView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if(event.getAction() == MotionEvent.ACTION_DOWN && ableSelect)
-            getSelected((int) event.getX(), (int) event.getY());
-        else if(event.getAction() == MotionEvent.ACTION_DOWN)
-            buyProc((int)event.getX(),(int)event.getY());
+        
+        int curX = (int)event.getX();
+        int curY = (int)event.getY();
+        
 
-        if(selected >= sprites.size())
-            selected = 0;
-
-        if(ableSelect && event.getAction() == MotionEvent.ACTION_MOVE)
-            sprites.get(selected).changePos(event.getX(),event.getY(),width,height);
-        else if(!ableSelect && event.getAction() == MotionEvent.ACTION_DOWN && System.nanoTime() - lastClick > 100000)
+        if(event.getAction() == MotionEvent.ACTION_MOVE)
         {
+<<<<<<< HEAD
             lastClick = System.nanoTime();
 
             System.out.println("Selected sprite == " + selected);
             System.out.println("X and Y inside sele == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
             if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
+=======
+            int chosen = getSelected(curX,curY);
+            if(chosen != -1)
+>>>>>>> origin/master
             {
-                switch(sprites.get(selected).getType())
+                sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
+                Rect rectOne = sprites.get(chosen).getRect();
+                for(int b = 0; b < sprites.size();b++)
+                {
+                    Rect rectTwo = sprites.get(b).getRect();
+                    if(sprites.get(chosen).getType() == sprites.get(b).getType())
+                    {
+                        if(ProcessorSprite.collision(rectOne,rectTwo))
+                        {
+                            connect(chosen, b);
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            
+        }
+        else if(MotionEvent.ACTION_DOWN == event.getAction())
+        {
+            int chosen = getSelected(curX,curY);
+            if(chosen != -1)
+            {
+                switch(sprites.get(chosen).getType())
                 {
                     case 0: bit.addBits(1); break;
                     case 1: bit.addBits(8); break;
                     case 2: bit.addBits(16); break;
                     case 3: bit.addBits(32); break;
                     case 4: bit.addBits(64); break;
-
                 }
             }
         }
-
-        if(sprites.size() != 1)
+/*        else if(MotionEvent.ACTION_UP == event.getAction())
         {
-            Rect selectedRect = new Rect(sprites.get(selected).getX(),sprites.get(selected).getY(),sprites.get(selected).totalX(),sprites.get(selected).totalY());
-            for(int k = 0; k < sprites.size();k++)
+            //now here is were we need to check for pieces connecting
+            //idk if we have a method for that but we need one...
+            //also i'm doing this in teh github site so if there are errors thats why
+            Rect one = new Rect(0,0,10,12);
+            for(int a = 0; a < sprites.size();a++)
             {
-                Rect tempRect = new Rect(sprites.get(k).getX(),sprites.get(k).getY(),sprites.get(k).totalX(),sprites.get(k).totalY());
-                if(ProcessorSprite.collision(selectedRect, tempRect) && selected != k && sprites.get(selected).getType() == sprites.get(k).getType())
+                Rect rectOne = sprites.get(a).getRect();
+
+                for(int b = 0; b < sprites.size();b++)
                 {
-                    connect(selected,k);
-                    break;
+                    Rect rectTwo = sprites.get(b).getRect();
+                    if(sprites.get(a).getType() == sprites.get(b).getType())
+                    {
+                        if(ProcessorSprite.collision(rectOne,rectTwo))
+                        {
+                            connect(a, b);
+                            return true;
+                        }
+                    }
                 }
             }
-        }
+        }*/
         return true;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //runs through all sprites on the screen and will select the one you click
-    public void getSelected(int x, int y)
+    public int getSelected(int x, int y)
     {
-        if(ableSelect)
+        for(int k = sprites.size() - 1; k >= 0; k--)
         {
-            for(int k = sprites.size() - 1; k >= 0; k--)
+            if(sprites.get(k).clickedInside(x,y))
             {
-                if(sprites.get(k).clickedInside(x,y))
-                {
-                    System.out.println("SPRITE " + k + " CLICKED");
-                    int lastSelected = selected;
-                    selected = k;
-                    updateSelected(lastSelected, selected);
-                    break;
-                }
-            }
+                System.out.println("SPRITE " + k + " CLICKED");
+//                updateSelected(lastSelected, selected);
+                return k;
+            }            
         }
+        return -1;
     }
 
     //"purchases" a processor and takes away from the total bits
@@ -303,7 +331,7 @@ public class GameView extends SurfaceView
     }
 
     //Unhighlight the previous Sprite and rehightlight the selected.
-    public void updateSelected(int old, int cur)
+/*    public void updateSelected(int old, int cur)
     {
         Bitmap b;
         switch(sprites.get(old).getType())
@@ -318,7 +346,7 @@ public class GameView extends SurfaceView
                 sprites.get(old).updateBit(b); break;
             case 4: b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                 sprites.get(old).updateBit(b); break;
-        }
+        }  
 
 //TODO     ADD SPRITE IMAGES FOR SELECTED ITEMS, I IMPLEMENTED THE ABILITY TO DO SO
 //TODO     JUST SOMETHING SIMPLE LIKE A RED OUTLINE WOULD WORK
@@ -335,11 +363,13 @@ public class GameView extends SurfaceView
             case 4: b = BitmapFactory.decodeResource(getResources(), R.drawable.selic_launcher);
                 sprites.get(cur).updateBit(b); break;
         }
-    }
+    } */
 
-    //If two Items are within  a given thresh hold of one another
+    //OLD: If two Items are within  a given thresh hold of one another
     //They will deletes the two previous Items and creates a new one
     //One tier obove the two old ones.
+    //NEW: need to run through the screen or sprites or something to check
+    // if they're connecting and then connect them;
     public void connect(int x1, int x2)
     {
         int x = sprites.get(selected).getX();
