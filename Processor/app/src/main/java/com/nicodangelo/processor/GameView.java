@@ -1,4 +1,4 @@
-//@author Jett Kasper
+//@author Jett Kaspar
 /*
 Manages all game touch events, manages game thread with initialization, keeps track of "bits", updates all game visuals and some helper methods
  */
