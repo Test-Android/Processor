@@ -224,16 +224,9 @@ public class GameView extends SurfaceView
 
         if(event.getAction() == MotionEvent.ACTION_MOVE)
         {
-<<<<<<< HEAD
-            lastClick = System.nanoTime();
 
-            System.out.println("Selected sprite == " + selected);
-            System.out.println("X and Y inside sele == " + sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()));
-            if(sprites.get(selected).clickedInside((int)event.getX(),(int)event.getY()))
-=======
             int chosen = getSelected(curX,curY);
             if(chosen != -1)
->>>>>>> origin/master
             {
                 sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
                 Rect rectOne = sprites.get(chosen).getRect();
