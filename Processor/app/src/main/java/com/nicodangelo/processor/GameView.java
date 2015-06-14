@@ -52,7 +52,6 @@ public class GameView extends SurfaceView
         this.width = width;
         this.height = height;
 
-
         sprites = new ArrayList<ProcessorSprite>();
         items = new ArrayList<ItemSprite>();
         temps = new ArrayList<TempSprite>();
