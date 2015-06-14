@@ -107,7 +107,7 @@ public class GameView extends SurfaceView
     //Initializes the sprites
     public void decodeResources()
      {
-        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
+        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.testies);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
@@ -233,22 +233,32 @@ public class GameView extends SurfaceView
             {
                 sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
 
-
+                System.out.println("BABY COME BACK TO ME");
                 Rect rectOne = sprites.get(chosen).getRect();
                 for(int b = 0; b < sprites.size();b++)
                 {
-                    Rect rectTwo = sprites.get(b).getRect();
-                    if(ProcessorSprite.collision(rectOne,rectTwo))
+                    if(b != chosen)
                     {
-                        if(sprites.get(chosen).getType() == sprites.get(b).getType())
+                        Rect rectTwo = sprites.get(b).getRect();
+                        if(ProcessorSprite.collision(rectTwo,rectOne))
                         {
-                            System.out.println("SPRITE " + chosen + " AND " + b + " SHOULD CONNECT");
-                            System.out.println("EXITING LOOP :3");
-                            return true;
-                        }
+                            System.out.println("IM ON THE INSIDE BITCHES");
+                            if(sprites.get(chosen).getType() == sprites.get(b).getType())
+                            {
+                                System.out.println("SPRITE " + chosen + " AND " + b + " SHOULD CONNECT");
+                                System.out.println("EXITING LOOP :3");
+                                return true;
+                            }
 //                        connect(chosen, b);
 //                        return true;
+                        }
                     }
+                    else
+                    {
+                        System.out.println("THE SAME = " + b);
+                        System.out.println("What the fuck u doin bra");
+                    }
+
 
                 }
             }
@@ -301,7 +311,7 @@ public class GameView extends SurfaceView
         {
             if(sprites.get(k).clickedInside(x,y))
             {
-                System.out.println("SPRITE " + k + " CLICKED");
+//                System.out.println("SPRITE " + k + " CLICKED");
 //                updateSelected(lastSelected, selected);
                 return k;
             }            
