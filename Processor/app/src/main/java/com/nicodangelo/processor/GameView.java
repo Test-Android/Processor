@@ -46,7 +46,7 @@ public class GameView extends SurfaceView
     public GameView(Context context, int width, int height, Bit bit)
     {
         super(context);
-
+        System.out.println("SUCK MY ASS");
         //make sure to connect the bit to "bit"
         this.bit = bit;
         this.width = width;
@@ -219,31 +219,40 @@ public class GameView extends SurfaceView
         
         int curX = (int)event.getX();
         int curY = (int)event.getY();
-        
-
-        if(event.getAction() == MotionEvent.ACTION_MOVE)
+        boolean up = false;
+        // THIS BIT MOVES AND EVENTUALLY WILL CONNECT THE PROCESSORS TOGETEhA
+        if(event.getAction() == MotionEvent.ACTION_UP)
         {
-
+            up = true;
+        }
+        if(event.getAction() == MotionEvent.ACTION_MOVE && !up)
+        {
+            up = true;
             int chosen = getSelected(curX,curY);
             if(chosen != -1)
             {
                 sprites.get(chosen).changePos((int)event.getX(),event.getY(),width,height);
+
+
                 Rect rectOne = sprites.get(chosen).getRect();
                 for(int b = 0; b < sprites.size();b++)
                 {
                     Rect rectTwo = sprites.get(b).getRect();
-                    if(sprites.get(chosen).getType() == sprites.get(b).getType())
+                    if(ProcessorSprite.collision(rectOne,rectTwo))
                     {
-                        if(ProcessorSprite.collision(rectOne,rectTwo))
+                        if(sprites.get(chosen).getType() == sprites.get(b).getType())
                         {
-                            connect(chosen, b);
+                            System.out.println("SPRITE " + chosen + " AND " + b + " SHOULD CONNECT");
+                            System.out.println("EXITING LOOP :3");
                             return true;
                         }
+//                        connect(chosen, b);
+//                        return true;
                     }
+
                 }
             }
-            
-            
+
         }
         else if(MotionEvent.ACTION_DOWN == event.getAction())
         {
@@ -361,9 +370,9 @@ public class GameView extends SurfaceView
     // if they're connecting and then connect them;
     public void connect(int x1, int x2)
     {
-        int x = sprites.get(selected).getX();
-        int y = sprites.get(selected).getY();
-        int type = sprites.get(selected).getType() + 1;
+        int x = sprites.get(x1).getX();
+        int y = sprites.get(x1).getY();
+        int type = sprites.get(x1).getType() + 1;
         if(x1 < x2)
         {
             sprites.remove(x2);
