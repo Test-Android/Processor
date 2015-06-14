@@ -250,8 +250,7 @@ public class GameView extends SurfaceView
             //now here is were we need to check for pieces connecting
             //idk if we have a method for that but we need one...
             //also i'm doing this in teh github site so if there are errors thats why
-            Rect one = new Rect(0,0,10,12);
-            for(int a = 0; a < sprites.size();a++)
+          /*for(int a = 0; a < sprites.size();a++)
             {
                 Rect rectOne = sprites.get(a).getRect();
 
@@ -267,7 +266,7 @@ public class GameView extends SurfaceView
                         }
                     }
                 }
-            }
+            }*/
         }
         return true;
     }
