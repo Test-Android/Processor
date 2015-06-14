@@ -107,7 +107,7 @@ public class GameView extends SurfaceView
     //Initializes the sprites
     public void decodeResources()
      {
-        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.testies);
+        Bitmap bmp  = BitmapFactory.decodeResource(getResources(), R.drawable.proc_1);
         sprites.add(new ProcessorSprite(this,bmp,100,100));
         sprites.add(new ProcessorSprite(this,bmp,300,300));
         sprites.add(new ProcessorSprite(this,bmp,900,400));
